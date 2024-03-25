@@ -6,11 +6,11 @@
 
 <br/>
 
-### 기업체 소개
-
 <div align="center">
 
-<img src="public/images/readme_img/futurework_lab.png" width="550">
+## 기업체 소개
+
+<img src="public/images/readme_img/futurework_lab.png" width="750">
 
 **퓨처워크랩 (Futurework Lab)**
 
@@ -44,13 +44,15 @@
 
 <br/><br/>
 
-### 팀소개
-
 <div align="center">
 
-<img src="public/images/readme_img/team_instruction.png" width="550">
+## 팀소개
+
+<img src="public/images/readme_img/team_instruction.png" width="750">
 
 </div>
+
+<br/>
 
 - **이상윤**: 웹 프론트엔드 개발(화면 디자인, 개발)
 - **황혜진**: 웹 프론트엔드 및 추천 알고리즘 개발
