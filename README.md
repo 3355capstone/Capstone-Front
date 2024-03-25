@@ -8,11 +8,11 @@
 
 <div align="center">
 
-## 기업체 소개
+## 프로젝트 및 기업체 소개
 
 <img src="public/images/readme_img/futurework_lab.png" width="750">
 
-**퓨처워크랩 (Futurework Lab)**
+**기업체: 퓨처워크랩 (Futurework Lab)**
 
 </div>
 
