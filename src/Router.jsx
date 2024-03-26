@@ -80,7 +80,7 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "shopping",
+        path: "course-shopping",
         element: <CourseShopping />,
         children: [],
         errorElement: <NotFound />,
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "posts",
+        path: "my-post",
         element: <MyPost />,
         children: [],
         errorElement: <NotFound />,
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
         element: <MyCourse />,
         children: [
           {
-            path: "course-detail",
+            path: "my-course-detail",
             element: <MyCourseDetail />,
             children: [],
             errorElement: <NotFound />,
