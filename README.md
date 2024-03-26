@@ -59,4 +59,14 @@
 - **김지유**: 백엔드 개발(DB 설계, API 개발)
 - **전혜진**: 데이터 기반 기획 및 통계 모델 개발
 
+<br/><br/>
+
+<div align="center">
+
+## 페이지 구성
+
+<img src="public/images/readme_img/page-tree.jpeg" width="750">
+
+</div>
+
 <br/>
