@@ -65,7 +65,7 @@
 
 ## 페이지 구성
 
-<img src="public/images/readme_img/page-tree.png" width="750">
+<img src="public/images/readme_img/page-tree.jpeg" width="750">
 
 </div>
 
