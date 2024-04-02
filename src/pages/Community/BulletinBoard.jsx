@@ -1,10 +1,5 @@
 const BulletinBoard = () => {
-  return (
-    <div>
-      BulletinBoard
-      <h1>Hello</h1>
-    </div>
-  );
+  return <div>BulletinBoard</div>;
 };
 
 export default BulletinBoard;
