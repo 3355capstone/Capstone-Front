@@ -4,11 +4,9 @@ import NotFound from "./components/NotFound";
 import BulletinBoard from "./pages/Community/BulletinBoard";
 import Community from "./pages/Community/Community";
 import Post from "./pages/Community/Post";
-import CourseCheck from "./pages/CourseManagement/CourseCheck";
-import CourseManagement from "./pages/CourseManagement/CourseManagement";
 import CourseRecommendation from "./pages/CourseRecommendation/CourseRecommendation";
 import CourseShopping from "./pages/CourseRecommendation/CourseShopping";
-import TagRecommendation from "./pages/CourseRecommendation/TagRecommendation";
+import RegionTagSelect from "./pages/CourseRecommendation/RegionTagSelect";
 import SignIn from "./pages/Login/SignIn";
 import SignUp from "./pages/Login/SignUp";
 import MainPage from "./pages/MainPage/MainPage";
@@ -16,6 +14,9 @@ import MyCourse from "./pages/MyPage/MyCourse";
 import MyCourseDetail from "./pages/MyPage/MyCourseDetail";
 import MyPage from "./pages/MyPage/MyPage";
 import MyPost from "./pages/MyPage/MyPost";
+import MyPostDetail from "./pages/MyPage/MyPostDetail";
+import MyScrap from "./pages/MyPage/MyScrap";
+import MyScrapDetail from "./pages/MyPage/MyScrapDetail";
 
 const router = createBrowserRouter([
   {
@@ -61,19 +62,6 @@ const router = createBrowserRouter([
       },
       //
       {
-        path: "course-management",
-        element: <CourseManagement />,
-        children: [],
-        errorElement: <NotFound />,
-      },
-      {
-        path: "course-check",
-        element: <CourseCheck />,
-        children: [],
-        errorElement: <NotFound />,
-      },
-      //
-      {
         path: "course-recommendation",
         element: <CourseRecommendation />,
         children: [],
@@ -86,8 +74,8 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "tag-recommendation",
-        element: <TagRecommendation />,
+        path: "region-tag-select",
+        element: <RegionTagSelect />,
         children: [],
         errorElement: <NotFound />,
       },
@@ -101,7 +89,14 @@ const router = createBrowserRouter([
       {
         path: "my-post",
         element: <MyPost />,
-        children: [],
+        children: [
+          {
+            path: "my-post-detail",
+            element: <MyPostDetail />,
+            children: [],
+            errorElement: <NotFound />,
+          },
+        ],
         errorElement: <NotFound />,
       },
       {
@@ -111,6 +106,19 @@ const router = createBrowserRouter([
           {
             path: "my-course-detail",
             element: <MyCourseDetail />,
+            children: [],
+            errorElement: <NotFound />,
+          },
+        ],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "my-scrap",
+        element: <MyScrap />,
+        children: [
+          {
+            path: "my-scrap-detail",
+            element: <MyScrapDetail />,
             children: [],
             errorElement: <NotFound />,
           },

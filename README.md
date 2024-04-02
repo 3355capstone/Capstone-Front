@@ -63,9 +63,9 @@
 
 <div align="center">
 
-## 페이지 구성
+## 페이지 흐름도
 
-<img src="public/images/readme_img/page-tree.jpeg" width="750">
+<img src="public/images/readme_img/screen-flow-chart.jpeg" width="750">
 
 </div>
 

@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
-const MyPage = () => {
+const MyScrap = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      MyPage
+      MyScrap
       <button
         onClick={() => {
           navigate("/my-post");
@@ -31,4 +31,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default MyScrap;
