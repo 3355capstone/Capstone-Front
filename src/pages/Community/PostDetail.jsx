@@ -6,10 +6,10 @@ const PostDetail = () => {
 
   return (
     <div>
-      <div>PostDetail</div>
+      <div>PostDetail {postId}</div>
       <button
         onClick={() => {
-          navigate("/post-edit");
+          navigate(`/post-edit/${postId}`);
         }}
       >
         게시글 수정

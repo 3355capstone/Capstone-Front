@@ -2,27 +2,14 @@ import { useNavigate } from "react-router-dom";
 
 const MyScrap = () => {
   const navigate = useNavigate();
+  const postId = 1;
 
   return (
     <div>
       MyScrap
       <button
         onClick={() => {
-          navigate("/my-post");
-        }}
-      >
-        내가 쓴 게시글 목록
-      </button>
-      <button
-        onClick={() => {
-          navigate("/my-course");
-        }}
-      >
-        코스 목록
-      </button>
-      <button
-        onClick={() => {
-          navigate("/my-scrap");
+          navigate(`/post-detail/:${postId}`);
         }}
       >
         스크랩한 게시글 목록

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const CourseAddFinish = () => {
   const navigate = useNavigate();
+  const courseId = 1;
 
   return (
     <div>
@@ -22,7 +23,7 @@ const CourseAddFinish = () => {
       </button>
       <button
         onClick={() => {
-          navigate("/my-course-detail");
+          navigate(`/my-course-detail/${courseId}`);
         }}
       >
         코스 상세 (수정 가능)

@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 
 const PostComplete = () => {
   const navigate = useNavigate();
+  const postId = 1;
 
   return (
     <div>
       <div>PostComplete</div>
       <button
         onClick={() => {
-          navigate("/post-detail");
+          navigate(`/post-detail/${postId}`);
         }}
       >
         내 게시글 상세

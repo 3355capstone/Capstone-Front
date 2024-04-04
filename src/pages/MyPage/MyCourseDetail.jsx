@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 const MyCourseDetail = () => {
   const { courseId } = useParams();
 
-  return <div>MyCourseDetail</div>;
+  return <div>MyCourseDetail {courseId}</div>;
 };
 
 export default MyCourseDetail;

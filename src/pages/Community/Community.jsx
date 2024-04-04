@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const Community = () => {
   const navigate = useNavigate();
+  const postId = 1;
 
   return (
     <div>
@@ -15,7 +16,7 @@ const Community = () => {
       </button>
       <button
         onClick={() => {
-          navigate("/post-detail");
+          navigate(`/post-detail/${postId}`);
         }}
       >
         게시글 상세
