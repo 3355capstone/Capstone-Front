@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-const Community = () => {
+const PostComplete = () => {
   const navigate = useNavigate();
   const postId = 1;
 
   return (
     <div>
-      <div>Community</div>
+      <div>PostComplete</div>
+      <button
+        onClick={() => {
+          navigate(`/post-detail/${postId}`);
+        }}
+      >
+        내 게시글 상세
+      </button>
       <button
         onClick={() => {
           navigate("/post");
@@ -16,13 +23,13 @@ const Community = () => {
       </button>
       <button
         onClick={() => {
-          navigate(`/post-detail/${postId}`);
+          navigate("/bulletin-board");
         }}
       >
-        게시글 상세
+        추천 게시글
       </button>
     </div>
   );
 };
 
-export default Community;
+export default PostComplete;
