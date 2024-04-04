@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./Root";
 import NotFound from "./components/NotFound";
-import BulletinBoard from "./pages/Community/BulletinBoard";
 import Community from "./pages/Community/Community";
 import Post from "./pages/Community/Post";
+import PostComplete from "./pages/Community/PostComplete";
+import PostEdit from "./pages/Community/PostEdit";
+import PostDetail from "./pages/Community/PostDetail";
 import CourseRecommendation from "./pages/CourseRecommendation/CourseRecommendation";
-import CourseShopping from "./pages/CourseRecommendation/CourseShopping";
+import CourseShopping from "./pages/CourseRecommendation/CourseAddFinish";
 import RegionTagSelect from "./pages/CourseRecommendation/RegionTagSelect";
 import SignIn from "./pages/Login/SignIn";
 import SignUp from "./pages/Login/SignUp";
@@ -16,7 +18,8 @@ import MyPage from "./pages/MyPage/MyPage";
 import MyPost from "./pages/MyPage/MyPost";
 import MyPostDetail from "./pages/MyPage/MyPostDetail";
 import MyScrap from "./pages/MyPage/MyScrap";
-import MyScrapDetail from "./pages/MyPage/MyScrapDetail";
+import BulletinBoard from "./pages/Community/BulletinBorad";
+import CourseAddFinish from "./pages/CourseRecommendation/CourseAddFinish";
 
 const router = createBrowserRouter([
   {
@@ -49,14 +52,38 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "bulletin-board",
-        element: <BulletinBoard />,
+        path: "post-detail",
+        element: <PostDetail />,
         children: [],
         errorElement: <NotFound />,
       },
       {
         path: "post",
         element: <Post />,
+        children: [],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "post-complete",
+        element: <PostComplete />,
+        children: [],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "post-detail/:postId",
+        element: <PostDetail />,
+        children: [],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "post-edit/:postId",
+        element: <PostEdit />,
+        children: [],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "bulletin-board",
+        element: <BulletinBoard />,
         children: [],
         errorElement: <NotFound />,
       },
@@ -68,14 +95,14 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "course-shopping",
-        element: <CourseShopping />,
+        path: "region-tag-select",
+        element: <RegionTagSelect />,
         children: [],
         errorElement: <NotFound />,
       },
       {
-        path: "region-tag-select",
-        element: <RegionTagSelect />,
+        path: "course-add-finish",
+        element: <CourseAddFinish />,
         children: [],
         errorElement: <NotFound />,
       },
@@ -89,40 +116,31 @@ const router = createBrowserRouter([
       {
         path: "my-post",
         element: <MyPost />,
-        children: [
-          {
-            path: "my-post-detail",
-            element: <MyPostDetail />,
-            children: [],
-            errorElement: <NotFound />,
-          },
-        ],
+        children: [],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "my-post-detail/:postId",
+        element: <MyPostDetail />,
+        children: [],
         errorElement: <NotFound />,
       },
       {
         path: "my-course",
         element: <MyCourse />,
-        children: [
-          {
-            path: "my-course-detail",
-            element: <MyCourseDetail />,
-            children: [],
-            errorElement: <NotFound />,
-          },
-        ],
+        children: [],
+        errorElement: <NotFound />,
+      },
+      {
+        path: "my-course-detail/:courseId",
+        element: <MyCourseDetail />,
+        children: [],
         errorElement: <NotFound />,
       },
       {
         path: "my-scrap",
         element: <MyScrap />,
-        children: [
-          {
-            path: "my-scrap-detail",
-            element: <MyScrapDetail />,
-            children: [],
-            errorElement: <NotFound />,
-          },
-        ],
+        children: [],
         errorElement: <NotFound />,
       },
     ],

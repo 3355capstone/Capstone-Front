@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom";
 
-const RegionTagSelect = () => {
+const BulletinBoard = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      <div>RegionTagSelect</div>
+      <div>BulletinBoard</div>
       <button
         onClick={() => {
-          navigate("/course-add-finish");
+          navigate("/post-detail");
         }}
       >
-        코스 추가 완료 알림
+        게시글 상세 (특정 게시글 클릭)
       </button>
     </div>
   );
 };
 
-export default RegionTagSelect;
+export default BulletinBoard;
