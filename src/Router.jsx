@@ -17,7 +17,7 @@ import MyCourseDetail from "./pages/MyPage/MyCourseDetail";
 import MyPage from "./pages/MyPage/MyPage";
 import MyPost from "./pages/MyPage/MyPost";
 import MyPostDetail from "./pages/MyPage/MyPostDetail";
-import MyScrap from "./pages/MyPage/MyScrap";
+import MyBookmark from "./pages/MyPage/MyBookmark";
 import BulletinBoard from "./pages/Community/BulletinBorad";
 import CourseAddFinish from "./pages/CourseRecommendation/CourseAddFinish";
 
@@ -138,8 +138,8 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "my-scrap",
-        element: <MyScrap />,
+        path: "my-bookmark",
+        element: <MyBookmark />,
         children: [],
         errorElement: <NotFound />,
       },
