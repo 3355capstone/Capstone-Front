@@ -65,7 +65,7 @@
 
 ## 페이지 흐름도
 
-<img src="public/images/readme_img/screen-flow-chart.png" width="750">
+<img src="public/images/readme_img/new-screen-flow-chart.png" width="750">
 
 </div>
 
