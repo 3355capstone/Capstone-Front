@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-const MyScrap = () => {
+const MyBookmark = () => {
   const navigate = useNavigate();
   const postId = 1;
 
   return (
     <div>
-      MyScrap
+      MyBookmark
       <button
         onClick={() => {
           navigate(`/post-detail/:${postId}`);
@@ -18,4 +18,4 @@ const MyScrap = () => {
   );
 };
 
-export default MyScrap;
+export default MyBookmark;

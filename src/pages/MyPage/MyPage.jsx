@@ -22,10 +22,10 @@ const MyPage = () => {
       </button>
       <button
         onClick={() => {
-          navigate("/my-scrap");
+          navigate("/my-bookmark");
         }}
       >
-        스크랩한 게시글 목록
+        내 북마크 목록
       </button>
     </div>
   );
