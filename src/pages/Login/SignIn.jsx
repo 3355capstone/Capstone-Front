@@ -1,18 +1,64 @@
 // Login.js
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post("/user/login", { email, password });
-      console.log(response.data); // 로그인 성공시에 대한 처리
-    } catch (error) {
-      console.error("로그인 에러:", error); // 에러 처리
+  const [isEmailError, setIsEmailError] = useState(false);
+  const emailRegExp =
+    /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+  const checkEmailForm = () => {
+    if (emailRegExp.test(email)) {
+      setIsEmailError(false);
+    } else {
+      setIsEmailError(true);
     }
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // 이메일이 올바른 형태인지 검사
+    checkEmailForm();
+    if (isEmailError === true) {
+      alert("로그인 실패 (시유: 이메일 형태가 올바르지 않음)");
+      return;
+    }
+
+    // 비밀번호가 공란인지 검사
+    if (password === "") {
+      alert("로그인 실패 (시유: 비밀번호 혹은 닉네임이 공란임)");
+    }
+
+    // 백엔드와 통신
+    fetch("http://서버주소/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("TOKEN", data.accessToken);
+          navigate("/");
+        } else {
+          alert(
+            "로그인 실패 (이메일 혹은 비밀번호가 존재하지 않거나 올바르지 않음)"
+          );
+        }
+      });
   };
 
   return (
