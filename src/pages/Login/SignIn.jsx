@@ -1,6 +1,7 @@
 // Login.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -62,23 +63,60 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <h2>로그인</h2>
-      <input
+    <Container>
+      <Title>로그인</Title>
+      <Input
         type="text"
         placeholder="이메일"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
+      <Input
         type="password"
         placeholder="비밀번호"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>로그인</button>
-    </div>
+      <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.backgroundColor};
+`;
+
+const Title = styled.h1`
+  font-weight: 800;
+`;
+
+const Input = styled.input`
+  width: 450px;
+  height: 40px;
+  margin-top: 10px;
+  border: 1px solid #a7bdc2;
+  padding: 10px;
+  font-size: 15px;
+
+  &::placeholder {
+    font-size: 15px;
+  }
+`;
+
+const LoginBtn = styled.button`
+  width: 450px;
+  height: 30px;
+  margin-top: 10px;
+  background-color: #08dfd9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+`;
 
 export default SignIn;
