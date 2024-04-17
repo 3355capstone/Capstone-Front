@@ -92,8 +92,10 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
-const Title = styled.h1`
+const Title = styled.p`
+  font-size: 25px;
   font-weight: 800;
+  margin-bottom: 40px;
 `;
 
 const Input = styled.input`
@@ -101,6 +103,7 @@ const Input = styled.input`
   height: 40px;
   margin-top: 10px;
   border: 1px solid #a7bdc2;
+  border-radius: 5px;
   padding: 10px;
   font-size: 15px;
 
@@ -111,12 +114,14 @@ const Input = styled.input`
 
 const LoginBtn = styled.button`
   width: 450px;
-  height: 30px;
-  margin-top: 10px;
+  height: 40px;
+  margin-top: 20px;
   background-color: #08dfd9;
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
 `;
 
 export default SignIn;
