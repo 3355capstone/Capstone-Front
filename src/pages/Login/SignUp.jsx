@@ -1,6 +1,7 @@
 // Signup.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const AGE_LIST = ["10", "20", "30", "40", "50", "60", "70", "80", "90"];
 const GENDER_LIST = [
@@ -79,7 +80,8 @@ function SignUp() {
         nationality: nationality,
       }),
     }).then((response) => {
-      if (response.status === 201) {
+      // if (response.status === 201) {
+      if (response.ok === true) {
         alert("회원가입을 축하합니다!");
         navigate("/sign-in");
       } else {
@@ -98,71 +100,142 @@ function SignUp() {
   };
 
   return (
-    <form onSubmit={handleSignup}>
-      <h2>회원가입</h2>
-      <h3>필수 입력사항</h3>
-      <div>
-        <input
+    <Container onSubmit={handleSignup}>
+      <Title>회원가입</Title>
+      <SubTitle>필수 입력사항</SubTitle>
+      <UpperBody>
+        <Input
           type="text"
           placeholder="이메일"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <Input
           type="password"
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input
+        <Input
           type="text"
           placeholder="닉네임"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
         />
-      </div>
-      <div>
-        <select
+      </UpperBody>
+      <LowerBody>
+        <Select
           name="age"
           placeholder="나이"
           value={age}
           onChange={(e) => setAge(e.target.value)}
         >
           {AGE_LIST.map((age) => (
-            <option key={age} value={age}>
+            <Option key={age} value={age}>
               {age}대
-            </option>
+            </Option>
           ))}
-        </select>
-        <select
+        </Select>
+        <Select
           name="gender"
           placeholder="성별"
           value={gender}
           onChange={(e) => setGender(e.target.value)}
         >
           {GENDER_LIST.map(([key, gender, genderKor]) => (
-            <option key={key} value={gender}>
+            <Option key={key} value={gender}>
               {genderKor}
-            </option>
+            </Option>
           ))}
-        </select>
-        <select
+        </Select>
+        <Select
           name="nationality"
           placeholder="국적"
           value={nationality}
           onChange={(e) => setNationality(e.target.value)}
         >
           {COUNTRY_LIST.map(([key, country, countryKor]) => (
-            <option key={key} value={country}>
+            <Option key={key} value={country}>
               {countryKor}
-            </option>
+            </Option>
           ))}
-        </select>
-      </div>
-      <button onClick={handleSignup}>회원가입</button>
+        </Select>
+      </LowerBody>
+      <SignUpBtn onClick={handleSignup}>회원가입</SignUpBtn>
       {/* <h4>아직 회원이 아니신가요?</h4> */}
-    </form>
+    </Container>
   );
 }
+
+const Container = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.backgroundColor};
+`;
+
+const Title = styled.p`
+  font-size: 25px;
+  font-weight: 800;
+  margin-bottom: 50px;
+`;
+
+const SubTitle = styled.h3`
+  font-weight: 500;
+  margin-bottom: 10px;
+`;
+
+const UpperBody = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  width: 450px;
+  height: 40px;
+  margin-top: 10px;
+  border: 1px solid #a7bdc2;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
+
+  &::placeholder {
+    font-size: 15px;
+  }
+`;
+
+const LowerBody = styled.div`
+  width: 450px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Select = styled.select`
+  width: 140px;
+  height: 40px;
+  margin-top: 20px;
+  border: 1px solid #a7bdc2;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+`;
+
+const Option = styled.option``;
+
+const SignUpBtn = styled.button`
+  width: 450px;
+  height: 40px;
+  margin-top: 20px;
+  background-color: #08dfd9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+`;
 
 export default SignUp;
