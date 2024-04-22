@@ -4,6 +4,20 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
+  @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Freesentation-9Black';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+  }
+
   /* @font-face {
     font-family: 'SEBANG_Gothic';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
@@ -28,6 +42,8 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     overflow-x: hidden;
     animation: moveBackground 36.5s linear infinite;
+
+    font-family: 'GmarketSansMedium';
   }
 
   @keyframes moveBackground {
