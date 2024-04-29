@@ -8,6 +8,7 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   const [popularPostArray, setPopularPostArray] = useState([]);
+  const [popularPlaceArray, setPopularPlaceArray] = useState([]);
 
   useEffect(() => {
     fetch("/data/PopularPostItems.json", {
@@ -15,29 +16,42 @@ const MainPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setPopularPostArray(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("/data/PopularPlaceItems.json", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPopularPlaceArray(data);
       });
   }, []);
 
   return (
     <Container>
-      <TitleImgBox></TitleImgBox>
+      <TitleImgBox>
+        <img src="/images/main_page/main_banner.png" />
+      </TitleImgBox>
       <PopularPostBox>
         <Title>최근 인기 동행 게시글</Title>
         <SubTitle>최근 인기 동행글을 확인해보세요</SubTitle>
         <PopularPostArea>
           {popularPostArray.map(({ postName, tags, imageUrl }) => {
+            const tag = `#${tags} `;
+
             return (
               <PostItem>
                 <div>
-                  <img width="200px" height="150px" src={imageUrl} />
+                  <img height="150px" src={imageUrl} />
                 </div>
                 <div>
-                  <p>{postName}</p>
+                  <p class="postname">{postName}</p>
                 </div>
                 <div>
-                  <p>{tags}</p>
+                  <p class="tags">{tag}</p>
                 </div>
               </PostItem>
             );
@@ -47,6 +61,23 @@ const MainPage = () => {
       <PopularPlaceBox>
         <Title>서울 인기 관광지</Title>
         <SubTitle>오직 서울만의 명소를 확인해보세요</SubTitle>
+        <PopularPlaceArea>
+          {popularPlaceArray.map(({ placeName, description, imageUrl }) => {
+            return (
+              <PopularPlaceItem>
+                <div>
+                  <img height="150px" src={imageUrl} />
+                </div>
+                <div>
+                  <p class="postname">{placeName}</p>
+                </div>
+                <div>
+                  <p class="tags">{description}</p>
+                </div>
+              </PopularPlaceItem>
+            );
+          })}
+        </PopularPlaceArea>
       </PopularPlaceBox>
       <Temporary>
         <div>MainPage</div>
@@ -99,8 +130,23 @@ const Container = styled.div`
 
 const TitleImgBox = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
-  height: 200px;
+  /* height: 30vh; */
+
+  img {
+    margin: 2vh 2vw;
+    border-radius: 5px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    img {
+      margin: 2vh 2vw;
+      border-radius: 5px;
+      width: 90vw;
+    }
+  }
 `;
 
 const PopularPostBox = styled.div`
@@ -133,12 +179,21 @@ const PostItem = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  border-radius: 10px;
 
   img {
     border-radius: 10px;
+    /* background-size: cover; */
+    object-fit: cover;
   }
   p {
-    margin: 3px;
+    margin: 7px;
+  }
+  .postname {
+    font-size: 16px;
+  }
+  .tags {
+    font-size: 12px;
   }
 `;
 
@@ -148,6 +203,10 @@ const PopularPlaceBox = styled.div`
   height: 40vh;
   padding: 10px;
 `;
+
+const PopularPlaceArea = styled.div``;
+
+const PopularPlaceItem = styled.div``;
 
 const Temporary = styled.div``;
 

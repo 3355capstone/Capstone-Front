@@ -1,0 +1,22 @@
+[
+  {
+    "placeName": "명동",
+    "description": "서울의 대표적인 쇼핑거리",
+    "imageUrl": ""
+  },
+  {
+    "placeName": "한강",
+    "description": "서울을 가로지르는 휴식처",
+    "imageUrl": ""
+  },
+  {
+    "placeName": "남산",
+    "description": "서울의 전망을 한눈에",
+    "imageUrl": ""
+  },
+  {
+    "placeName": "경복궁",
+    "description": "한국의 대표적인 궁궐",
+    "imageUrl": ""
+  }
+]
