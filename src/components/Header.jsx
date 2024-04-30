@@ -25,8 +25,20 @@ const Header = () => {
         <LoginArea>
           {token ? (
             <>
-              <LogoutBtn>로그아웃</LogoutBtn>
-              <MyPageBtn>마이페이지</MyPageBtn>
+              <LogoutBtn>
+                <a
+                  href={"/sign-in"}
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    window.location.reload();
+                  }}
+                >
+                  로그아웃
+                </a>
+              </LogoutBtn>
+              <MyPageBtn>
+                <a href="/my-page">마이페이지</a>
+              </MyPageBtn>
             </>
           ) : (
             <>
@@ -67,15 +79,15 @@ const NavBar = styled.div`
 
 const NavButton = styled.div`
   margin: 10px;
-  font-family: Freesentation-9Black;
-  font-size: 18px;
+  /* font-family: Freesentation-9Black; */
+  font-size: 15px;
 
   a {
     color: #3f3d3d;
   }
 
   a:hover {
-    color: blue;
+    color: #04dfd9;
   }
 `;
 
@@ -89,18 +101,22 @@ const LoginArea = styled.div`
 
 const LogoutBtn = styled.div`
   margin-right: 15px;
+  font-size: 14px;
 `;
 
 const MyPageBtn = styled.div`
   margin-right: 15px;
+  font-size: 14px;
 `;
 
 const LoginBtn = styled.div`
   margin-right: 15px;
+  font-size: 14px;
 `;
 
 const SignUpBtn = styled.div`
   margin-right: 15px;
+  font-size: 14px;
 `;
 
 export default Header;
