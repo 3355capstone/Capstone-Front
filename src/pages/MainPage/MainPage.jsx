@@ -39,11 +39,16 @@ const MainPage = () => {
         <Title>최근 인기 동행 게시글</Title>
         <SubTitle>최근 인기 동행글을 확인해보세요</SubTitle>
         <PopularPostArea>
-          {popularPostArray.map(({ postName, tags, imageUrl }) => {
+          {popularPostArray.map(({ id, postName, tags, imageUrl }) => {
             const tag = `#${tags} `;
 
             return (
-              <PostItem>
+              <PostItem
+                key={id}
+                onClick={() => {
+                  navigate(`/post/${id}`);
+                }}
+              >
                 <div>
                   <img height="150px" src={imageUrl} />
                 </div>
@@ -79,44 +84,11 @@ const MainPage = () => {
           })}
         </PopularPlaceArea>
       </PopularPlaceBox>
-      <Temporary>
-        <div>MainPage</div>
-        <button
-          onClick={() => {
-            navigate("/sign-in");
-          }}
-        >
-          로그인
-        </button>
-        <button
-          onClick={() => {
-            navigate("/sign-up");
-          }}
-        >
-          회원가입
-        </button>
-        <button
-          onClick={() => {
-            navigate("/community");
-          }}
-        >
-          커뮤니티
-        </button>
-        <button
-          onClick={() => {
-            navigate("/course-recommendation");
-          }}
-        >
-          코스 추천
-        </button>
-        <button
-          onClick={() => {
-            navigate("/my-page");
-          }}
-        >
-          마이페이지
-        </button>
-      </Temporary>
+      {/* <button
+        onClick={() => {
+          navigate("/sign-in");
+        }}
+      ></button> */}
     </Container>
   );
 };
@@ -133,18 +105,18 @@ const TitleImgBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  margin: 3vh 0;
   /* height: 30vh; */
 
   img {
-    margin: 2vh 2vw;
-    border-radius: 5px;
+    width: 85vw;
+    border-radius: 20px;
   }
 
   @media only screen and (max-width: 800px) {
     img {
       margin: 2vh 2vw;
-      border-radius: 5px;
-      width: 90vw;
+      width: 85vw;
     }
   }
 `;
@@ -154,6 +126,7 @@ const PopularPostBox = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 45vh;
+  margin: 2vh 5vw;
   padding: 10px;
 `;
 
@@ -170,8 +143,9 @@ const SubTitle = styled.p`
 
 const PopularPostArea = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
   gap: 15px 15px;
+  margin: 10px 0px;
   padding: 10px;
 `;
 
@@ -201,13 +175,38 @@ const PopularPlaceBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 40vh;
+  margin: 2vh 5vw;
   padding: 10px;
 `;
 
-const PopularPlaceArea = styled.div``;
+const PopularPlaceArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  gap: 15px 15px;
+  margin: 10px 0px;
+  padding: 10px;
+`;
 
-const PopularPlaceItem = styled.div``;
+const PopularPlaceItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
 
-const Temporary = styled.div``;
+  img {
+    border-radius: 10px;
+    /* background-size: cover; */
+    object-fit: cover;
+  }
+  p {
+    margin: 7px;
+  }
+  .postname {
+    font-size: 16px;
+  }
+  .tags {
+    font-size: 12px;
+  }
+`;
 
 export default MainPage;

@@ -1,10 +1,12 @@
 [
   {
+    "id": 0,
     "postName": "연휴에 2박 3일 서울여행 함께",
     "tags": ["서울", "명소", "힐링", "맛집", "카페", "야경", "혼행"],
     "imageUrl": "https://www.agoda.com/wp-content/uploads/2019/03/Seoul-attractions-Changdeokgung.jpg"
   },
   {
+    "id": 1,
     "postName": "서울 나들이 가실 분 구해요",
     "tags": ["서울", "명소", "힐링", "맛집", "카페", "야경", "혼행"],
     "imageUrl": "https://img.hani.co.kr/imgdb/resize/2022/0121/164266180737_20220121.JPG"
