@@ -61,14 +61,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: gray;
+    color: black;
   }
 
   a:hover, a:visited, a:link, a:active {
       text-decoration: none;
-  }
-  a:hover{
-      color: #a00;
   }
 
   * {

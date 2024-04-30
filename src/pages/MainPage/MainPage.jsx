@@ -154,6 +154,7 @@ const PopularPostBox = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 45vh;
+  margin: 20px;
   padding: 10px;
 `;
 
@@ -172,6 +173,7 @@ const PopularPostArea = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
   gap: 15px 15px;
+  margin: 10px 0px;
   padding: 10px;
 `;
 
@@ -201,12 +203,39 @@ const PopularPlaceBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 40vh;
+  margin: 20px;
   padding: 10px;
 `;
 
-const PopularPlaceArea = styled.div``;
+const PopularPlaceArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  gap: 15px 15px;
+  margin: 10px 0px;
+  padding: 10px;
+`;
 
-const PopularPlaceItem = styled.div``;
+const PopularPlaceItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+
+  img {
+    border-radius: 10px;
+    /* background-size: cover; */
+    object-fit: cover;
+  }
+  p {
+    margin: 7px;
+  }
+  .postname {
+    font-size: 16px;
+  }
+  .tags {
+    font-size: 12px;
+  }
+`;
 
 const Temporary = styled.div``;
 
