@@ -1,0 +1,30 @@
+[
+  {
+    "place": "부산",
+    "gender": "남성",
+    "age": "30",
+    "title": "부산여행 계획중입니다",
+    "description": "여행 기간은 1박2일 생각하고 있습니다. 여행 일정을 전부 다 같이 해도 되고 밥/카페 정도만 부분 동행해도 좋아요!",
+    "travelStyleTagOne": "명소탐방",
+    "travelStyleTagTwo": "휴식/휴양",
+    "restaurantTagOne": "한식",
+    "restaurantTagTwo": "가성비있는",
+    "accommodationTagOne": "펜션",
+    "accommodationTagTwo": "교통접근성",
+    "imageUrl": "https://images.unsplash.com/photo-1596120236172-231999844ade?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "place": "제주",
+    "gender": "남성",
+    "age": "30",
+    "title": "제주가서 힐링하고 오실 분",
+    "description": "제주 여행 코스로 애월을 생각하고 있는데, 가기 전에 구체적으로 함께 계획해도 재밌을 것 같아요",
+    "travelStyleTagOne": "명소탐방",
+    "travelStyleTagTwo": "휴식/휴양",
+    "restaurantTagOne": "한식",
+    "restaurantTagTwo": "가성비있는",
+    "accommodationTagOne": "펜션",
+    "accommodationTagTwo": "교통접근성",
+    "imageUrl": "https://images.unsplash.com/photo-1596120236172-231999844ade?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
+]
