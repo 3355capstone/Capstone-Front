@@ -1,4 +1,3 @@
-import { click } from "@testing-library/user-event/dist/click";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -86,6 +85,18 @@ const Community = () => {
   const [accommodationTagColors, setAccommodationTagColors] = useState(
     Array(TRAVEL_STYLE_TAGS.length).fill("white")
   );
+
+  const [postData, setPostData] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/PostData.json", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPostData(data);
+      });
+  }, []);
 
   // 백엔드와 통신
   // useEffect(() => {
@@ -187,7 +198,12 @@ const Community = () => {
     }
 
     // 태그에 맞춰 게시글 필터링하기
-    // alert("태그에 해당하는 게시물을 불러모으는 중입니다.");
+    travelStyleTagColors.map((tagColor) => {
+      if (tagColor !== "white") {
+      }
+    });
+    // TRAVEL_STYLE_TAGS
+    alert("태그에 해당하는 게시물을 불러모으는 중입니다.");
   };
 
   const postId = 1;
@@ -266,7 +282,24 @@ const Community = () => {
           게시글 상세
         </button>
       </Temporary>
-      <PostShowArea></PostShowArea>
+      <PostShowArea>
+        {postData.map(
+          ({
+            place,
+            gender,
+            age,
+            title,
+            description,
+            travelStyleTagOne,
+            travelStyleTagTwo,
+            restaurantTagOne,
+            restaurantTagTwo,
+            accommodationTagOne,
+            accommodationTagTwo,
+            imageUrl,
+          }) => {}
+        )}
+      </PostShowArea>
     </Container>
   );
 };
