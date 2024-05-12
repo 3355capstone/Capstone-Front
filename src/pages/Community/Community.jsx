@@ -16,7 +16,7 @@ const TRAVEL_STYLE_TAGS = [
   "식도락",
   "휴식/휴양",
   "역사유적지",
-  "테마파크,동/식물원",
+  "테마파크",
   "시티투어",
   "쇼핑",
   "드라마촬영지",
@@ -83,20 +83,55 @@ const Community = () => {
   );
 
   const [accommodationTagColors, setAccommodationTagColors] = useState(
-    Array(TRAVEL_STYLE_TAGS.length).fill("white")
+    Array(ACCOMMODATION_TAGS.length).fill("white")
   );
+
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const [isTagSelectCompleteBtnClicked, setIsTagSelectCompleteBtnClicked] =
+    useState(false);
 
   const [postData, setPostData] = useState([]);
 
+  // 태그 선택 완료 버튼 클릭 시 (각 카테고리당 2개씩 선택) 일어나는 동작 관리
   useEffect(() => {
-    fetch("/data/PostData.json", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPostData(data);
-      });
-  }, []);
+    travelStyleTagColors.forEach((tagColor, index) => {
+      if (tagColor !== "white") {
+        setSelectedTags((prevTags) => {
+          // 이전 상태를 기반으로 새로운 배열을 생성하여 요소를 추가합니다.
+          return [...prevTags, TRAVEL_STYLE_TAGS[index]];
+        });
+      }
+    });
+
+    restaurantTagColors.forEach((tagColor, index) => {
+      if (tagColor !== "white") {
+        setSelectedTags((prevTags) => {
+          // 이전 상태를 기반으로 새로운 배열을 생성하여 요소를 추가합니다.
+          return [...prevTags, RESTAURANT_TAGS[index]];
+        });
+      }
+    });
+
+    accommodationTagColors.forEach((tagColor, index) => {
+      if (tagColor !== "white") {
+        setSelectedTags((prevTags) => {
+          // 이전 상태를 기반으로 새로운 배열을 생성하여 요소를 추가합니다.
+          return [...prevTags, ACCOMMODATION_TAGS[index]];
+        });
+      }
+    });
+  }, [isTagSelectCompleteBtnClicked]);
+
+  // useEffect(() => {
+  //   fetch("/data/PostData.json", {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPostData(data);
+  //     });
+  // }, []);
 
   // 백엔드와 통신
   // useEffect(() => {
@@ -197,13 +232,41 @@ const Community = () => {
       return;
     }
 
+    setIsTagSelectCompleteBtnClicked(true);
+
     // 태그에 맞춰 게시글 필터링하기
-    travelStyleTagColors.map((tagColor) => {
-      if (tagColor !== "white") {
-      }
-    });
-    // TRAVEL_STYLE_TAGS
+    // travelStyleTagColors.forEach((tagColor, index) => {
+    //   if (tagColor !== "white") {
+    //     const newList = [...selectedTags];
+    //     newList.push(TRAVEL_STYLE_TAGS[index]);
+    //     setSelectedTags(newList);
+    //   }
+    // });
+
+    // console.log(selectedTags);
+
+    // restaurantTagColors.forEach((tagColor, index) => {
+    //   if (tagColor !== "white") {
+    //     const newList = [...selectedTags];
+    //     newList.push(RESTAURANT_TAGS[index]);
+    //     setSelectedTags(newList);
+    //   }
+    // });
+
+    // console.log(selectedTags);
+
+    // accommodationTagColors.forEach((tagColor, index) => {
+    //   if (tagColor !== "white") {
+    //     const newList = [...selectedTags];
+    //     newList.push(ACCOMMODATION_TAGS[index]);
+    //     setSelectedTags(newList);
+    //   }
+    // });
+
+    console.log(selectedTags);
+
     alert("태그에 해당하는 게시물을 불러모으는 중입니다.");
+    console.log(selectedTags);
   };
 
   const postId = 1;
@@ -265,6 +328,25 @@ const Community = () => {
           태그 선택 완료
         </TagSelectCompleteBtn>
       </TagSelectCompleteArea>
+      <PostShowArea>
+        {/* {postData.map(
+          ({
+            place,
+            gender,
+            age,
+            title,
+            description,
+            travelStyleTagOne,
+            travelStyleTagTwo,
+            restaurantTagOne,
+            restaurantTagTwo,
+            accommodationTagOne,
+            accommodationTagTwo,
+            imageUrl,
+          }) => {}
+        )} */}
+        {selectedTags}
+      </PostShowArea>
       <Temporary>
         <div>Community</div>
         <button
@@ -282,24 +364,6 @@ const Community = () => {
           게시글 상세
         </button>
       </Temporary>
-      <PostShowArea>
-        {postData.map(
-          ({
-            place,
-            gender,
-            age,
-            title,
-            description,
-            travelStyleTagOne,
-            travelStyleTagTwo,
-            restaurantTagOne,
-            restaurantTagTwo,
-            accommodationTagOne,
-            accommodationTagTwo,
-            imageUrl,
-          }) => {}
-        )}
-      </PostShowArea>
     </Container>
   );
 };
