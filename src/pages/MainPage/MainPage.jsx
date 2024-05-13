@@ -90,6 +90,7 @@ const MainPage = () => {
           navigate("/sign-in");
         }}
       ></button> */}
+      <FooterMargin></FooterMargin>
     </Container>
   );
 };
@@ -131,7 +132,7 @@ const PopularPostBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 45vh;
+  /* height: 500px; */
   margin: 2vh 5vw;
   padding: 10px;
 `;
@@ -213,6 +214,10 @@ const PopularPlaceItem = styled.div`
   .tags {
     font-size: 12px;
   }
+`;
+
+const FooterMargin = styled.div`
+  height: 80px;
 `;
 
 export default MainPage;

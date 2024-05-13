@@ -311,8 +311,9 @@ const Community = () => {
           태그 선택 완료
         </TagSelectCompleteBtn>
       </TagSelectCompleteArea>
-      <PostShowArea>
-        {/* {postData.map(
+      <PostShowBox>
+        <PostShowArea>
+          {/* {postData.map(
           ({
             place,
             gender,
@@ -323,30 +324,32 @@ const Community = () => {
             imageUrl,
           }) => {}
         )} */}
-        {postData.map(({ id, title, tags, imageUrl }) => {
-          const tag = `#${tags} `;
+          {postData.map(({ id, title, tags, imageUrl }) => {
+            const tag = `#${tags} `;
 
-          return (
-            <PostItem
-              key={id}
-              onClick={() => {
-                navigate(`/post/${id}`);
-              }}
-            >
-              <div>
-                <img height="150px" src={imageUrl} />
-              </div>
-              <div>
-                <p class="postname">{title}</p>
-              </div>
-              <div>
-                <p class="tags">{tag}</p>
-              </div>
-            </PostItem>
-          );
-        })}
-        {selectedTags}
-      </PostShowArea>
+            return (
+              <PostItem
+                key={id}
+                onClick={() => {
+                  navigate(`/post/${id}`);
+                }}
+              >
+                <div>
+                  <img height="150px" src={imageUrl} />
+                </div>
+                <div>
+                  <p class="postname">{title}</p>
+                </div>
+                <div>
+                  <p class="tags">{tag}</p>
+                </div>
+              </PostItem>
+            );
+          })}
+          {selectedTags}
+        </PostShowArea>
+      </PostShowBox>
+      <FooterMargin></FooterMargin>
     </Container>
   );
 };
@@ -477,6 +480,13 @@ const TagSelectCompleteBtn = styled.div`
 
 //
 
+const PostShowBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 2vh 5vw;
+  padding: 10px;
+`;
+
 const PostShowArea = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
@@ -505,6 +515,10 @@ const PostItem = styled.div`
   .tags {
     font-size: 12px;
   }
+`;
+
+const FooterMargin = styled.div`
+  height: 80px;
 `;
 
 export default Community;
