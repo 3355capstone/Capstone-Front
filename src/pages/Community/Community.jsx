@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -16,7 +15,7 @@ const TRAVEL_STYLE_TAGS = [
   "식도락",
   "휴식/휴양",
   "역사유적지",
-  "테마파크,동/식물원",
+  "테마파크",
   "시티투어",
   "쇼핑",
   "드라마촬영지",
@@ -83,10 +82,47 @@ const Community = () => {
   );
 
   const [accommodationTagColors, setAccommodationTagColors] = useState(
-    Array(TRAVEL_STYLE_TAGS.length).fill("white")
+    Array(ACCOMMODATION_TAGS.length).fill("white")
   );
 
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const [isTagSelectCompleteBtnClicked, setIsTagSelectCompleteBtnClicked] =
+    useState(0);
+
   const [postData, setPostData] = useState([]);
+
+  // 태그 선택 완료 버튼 클릭 시 (각 카테고리당 2개씩 선택) 일어나는 동작 관리
+  useEffect(() => {
+    setSelectedTags([]);
+
+    travelStyleTagColors.forEach((tagColor, index) => {
+      if (tagColor !== "white") {
+        setSelectedTags((prevTags) => {
+          // 이전 상태를 기반으로 새로운 배열을 생성하여 요소를 추가합니다.
+          return [...prevTags, TRAVEL_STYLE_TAGS[index]];
+        });
+      }
+    });
+
+    restaurantTagColors.forEach((tagColor, index) => {
+      if (tagColor !== "white") {
+        setSelectedTags((prevTags) => {
+          // 이전 상태를 기반으로 새로운 배열을 생성하여 요소를 추가합니다.
+          return [...prevTags, RESTAURANT_TAGS[index]];
+        });
+      }
+    });
+
+    accommodationTagColors.forEach((tagColor, index) => {
+      if (tagColor !== "white") {
+        setSelectedTags((prevTags) => {
+          // 이전 상태를 기반으로 새로운 배열을 생성하여 요소를 추가합니다.
+          return [...prevTags, ACCOMMODATION_TAGS[index]];
+        });
+      }
+    });
+  }, [isTagSelectCompleteBtnClicked]);
 
   useEffect(() => {
     fetch("/data/PostData.json", {
@@ -197,22 +233,32 @@ const Community = () => {
       return;
     }
 
+    setIsTagSelectCompleteBtnClicked((prev) => prev + 1);
+
     // 태그에 맞춰 게시글 필터링하기
-    travelStyleTagColors.map((tagColor) => {
-      if (tagColor !== "white") {
-      }
-    });
-    // TRAVEL_STYLE_TAGS
+    // => 위의 useState에 구현했음
+
     alert("태그에 해당하는 게시물을 불러모으는 중입니다.");
+    console.log(selectedTags);
   };
 
   const postId = 1;
 
   return (
     <Container>
+      <HeaderMargin></HeaderMargin>
       <TitleImgBox>
         <img src="/images/main_page/main_banner.png" />
       </TitleImgBox>
+      <PostBtnArea>
+        <PostBtn
+          onClick={() => {
+            navigate("/post");
+          }}
+        >
+          게시글 작성하기
+        </PostBtn>
+      </PostBtnArea>
       <TagsArea>
         <TagsGroupArea>
           <TagTitleArea>
@@ -265,40 +311,41 @@ const Community = () => {
           태그 선택 완료
         </TagSelectCompleteBtn>
       </TagSelectCompleteArea>
-      <Temporary>
-        <div>Community</div>
-        <button
-          onClick={() => {
-            navigate("/post");
-          }}
-        >
-          게시글 작성
-        </button>
-        <button
-          onClick={() => {
-            navigate(`/post-detail/${postId}`);
-          }}
-        >
-          게시글 상세
-        </button>
-      </Temporary>
       <PostShowArea>
-        {postData.map(
+        {/* {postData.map(
           ({
             place,
             gender,
             age,
             title,
             description,
-            travelStyleTagOne,
-            travelStyleTagTwo,
-            restaurantTagOne,
-            restaurantTagTwo,
-            accommodationTagOne,
-            accommodationTagTwo,
+            Tags
             imageUrl,
           }) => {}
-        )}
+        )} */}
+        {postData.map(({ id, title, tags, imageUrl }) => {
+          const tag = `#${tags} `;
+
+          return (
+            <PostItem
+              key={id}
+              onClick={() => {
+                navigate(`/post/${id}`);
+              }}
+            >
+              <div>
+                <img height="150px" src={imageUrl} />
+              </div>
+              <div>
+                <p class="postname">{title}</p>
+              </div>
+              <div>
+                <p class="tags">{tag}</p>
+              </div>
+            </PostItem>
+          );
+        })}
+        {selectedTags}
       </PostShowArea>
     </Container>
   );
@@ -309,6 +356,10 @@ const Container = styled.div`
   flex-direction: column;
   width: 100vw;
   background-color: ${({ theme }) => theme.backgroundColor};
+`;
+
+const HeaderMargin = styled.div`
+  height: 80px;
 `;
 
 const TitleImgBox = styled.div`
@@ -329,6 +380,28 @@ const TitleImgBox = styled.div`
       width: 85vw;
     }
   }
+`;
+
+const PostBtnArea = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+`;
+
+const PostBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 205px;
+  height: 45px;
+  margin-bottom: 15px;
+  margin: 0px 7.5vw 15px 0px;
+  border-radius: 10px;
+  color: white;
+  background-color: #04dfd9;
+  /* font-family: "Freesentation-9Black"; */
 `;
 
 const TagsArea = styled.div`
@@ -404,8 +477,34 @@ const TagSelectCompleteBtn = styled.div`
 
 //
 
-const PostShowArea = styled.div``;
+const PostShowArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
+  gap: 15px 15px;
+  margin: 10px 0px;
+  padding: 10px;
+`;
 
-const Temporary = styled.div``;
+const PostItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+
+  img {
+    border-radius: 10px;
+    /* background-size: cover; */
+    object-fit: cover;
+  }
+  p {
+    margin: 7px;
+  }
+  .postname {
+    font-size: 16px;
+  }
+  .tags {
+    font-size: 12px;
+  }
+`;
 
 export default Community;
