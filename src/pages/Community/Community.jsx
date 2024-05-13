@@ -503,7 +503,6 @@ const PostItem = styled.div`
 
   img {
     border-radius: 10px;
-    /* background-size: cover; */
     object-fit: cover;
   }
   p {
