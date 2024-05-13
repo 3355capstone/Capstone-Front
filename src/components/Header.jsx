@@ -57,10 +57,15 @@ const Header = () => {
 };
 
 const Container = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  width: 100%;
+  height: 75px;
 `;
 
 const HeaderLeftArea = styled.div`

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -89,12 +88,14 @@ const Community = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const [isTagSelectCompleteBtnClicked, setIsTagSelectCompleteBtnClicked] =
-    useState(false);
+    useState(0);
 
   const [postData, setPostData] = useState([]);
 
   // 태그 선택 완료 버튼 클릭 시 (각 카테고리당 2개씩 선택) 일어나는 동작 관리
   useEffect(() => {
+    setSelectedTags([]);
+
     travelStyleTagColors.forEach((tagColor, index) => {
       if (tagColor !== "white") {
         setSelectedTags((prevTags) => {
@@ -123,15 +124,15 @@ const Community = () => {
     });
   }, [isTagSelectCompleteBtnClicked]);
 
-  // useEffect(() => {
-  //   fetch("/data/PostData.json", {
-  //     method: "GET",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPostData(data);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch("/data/PostData.json", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPostData(data);
+      });
+  }, []);
 
   // 백엔드와 통신
   // useEffect(() => {
@@ -232,38 +233,10 @@ const Community = () => {
       return;
     }
 
-    setIsTagSelectCompleteBtnClicked(true);
+    setIsTagSelectCompleteBtnClicked((prev) => prev + 1);
 
     // 태그에 맞춰 게시글 필터링하기
-    // travelStyleTagColors.forEach((tagColor, index) => {
-    //   if (tagColor !== "white") {
-    //     const newList = [...selectedTags];
-    //     newList.push(TRAVEL_STYLE_TAGS[index]);
-    //     setSelectedTags(newList);
-    //   }
-    // });
-
-    // console.log(selectedTags);
-
-    // restaurantTagColors.forEach((tagColor, index) => {
-    //   if (tagColor !== "white") {
-    //     const newList = [...selectedTags];
-    //     newList.push(RESTAURANT_TAGS[index]);
-    //     setSelectedTags(newList);
-    //   }
-    // });
-
-    // console.log(selectedTags);
-
-    // accommodationTagColors.forEach((tagColor, index) => {
-    //   if (tagColor !== "white") {
-    //     const newList = [...selectedTags];
-    //     newList.push(ACCOMMODATION_TAGS[index]);
-    //     setSelectedTags(newList);
-    //   }
-    // });
-
-    console.log(selectedTags);
+    // => 위의 useState에 구현했음
 
     alert("태그에 해당하는 게시물을 불러모으는 중입니다.");
     console.log(selectedTags);
@@ -273,9 +246,19 @@ const Community = () => {
 
   return (
     <Container>
+      <HeaderMargin></HeaderMargin>
       <TitleImgBox>
         <img src="/images/main_page/main_banner.png" />
       </TitleImgBox>
+      <PostBtnArea>
+        <PostBtn
+          onClick={() => {
+            navigate("/post");
+          }}
+        >
+          게시글 작성하기
+        </PostBtn>
+      </PostBtnArea>
       <TagsArea>
         <TagsGroupArea>
           <TagTitleArea>
@@ -336,34 +319,34 @@ const Community = () => {
             age,
             title,
             description,
-            travelStyleTagOne,
-            travelStyleTagTwo,
-            restaurantTagOne,
-            restaurantTagTwo,
-            accommodationTagOne,
-            accommodationTagTwo,
+            Tags
             imageUrl,
           }) => {}
         )} */}
+        {postData.map(({ id, title, tags, imageUrl }) => {
+          const tag = `#${tags} `;
+
+          return (
+            <PostItem
+              key={id}
+              onClick={() => {
+                navigate(`/post/${id}`);
+              }}
+            >
+              <div>
+                <img height="150px" src={imageUrl} />
+              </div>
+              <div>
+                <p class="postname">{title}</p>
+              </div>
+              <div>
+                <p class="tags">{tag}</p>
+              </div>
+            </PostItem>
+          );
+        })}
         {selectedTags}
       </PostShowArea>
-      <Temporary>
-        <div>Community</div>
-        <button
-          onClick={() => {
-            navigate("/post");
-          }}
-        >
-          게시글 작성
-        </button>
-        <button
-          onClick={() => {
-            navigate(`/post-detail/${postId}`);
-          }}
-        >
-          게시글 상세
-        </button>
-      </Temporary>
     </Container>
   );
 };
@@ -373,6 +356,10 @@ const Container = styled.div`
   flex-direction: column;
   width: 100vw;
   background-color: ${({ theme }) => theme.backgroundColor};
+`;
+
+const HeaderMargin = styled.div`
+  height: 80px;
 `;
 
 const TitleImgBox = styled.div`
@@ -393,6 +380,28 @@ const TitleImgBox = styled.div`
       width: 85vw;
     }
   }
+`;
+
+const PostBtnArea = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+`;
+
+const PostBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 205px;
+  height: 45px;
+  margin-bottom: 15px;
+  margin: 0px 7.5vw 15px 0px;
+  border-radius: 10px;
+  color: white;
+  background-color: #04dfd9;
+  /* font-family: "Freesentation-9Black"; */
 `;
 
 const TagsArea = styled.div`
@@ -468,8 +477,34 @@ const TagSelectCompleteBtn = styled.div`
 
 //
 
-const PostShowArea = styled.div``;
+const PostShowArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
+  gap: 15px 15px;
+  margin: 10px 0px;
+  padding: 10px;
+`;
 
-const Temporary = styled.div``;
+const PostItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+
+  img {
+    border-radius: 10px;
+    /* background-size: cover; */
+    object-fit: cover;
+  }
+  p {
+    margin: 7px;
+  }
+  .postname {
+    font-size: 16px;
+  }
+  .tags {
+    font-size: 12px;
+  }
+`;
 
 export default Community;

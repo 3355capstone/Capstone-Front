@@ -32,6 +32,7 @@ const MainPage = () => {
 
   return (
     <Container>
+      <HeaderMargin></HeaderMargin>
       <TitleImgBox>
         <img src="/images/main_page/main_banner.png" />
       </TitleImgBox>
@@ -97,7 +98,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
+  /* margin-top: 80px; */
   background-color: ${({ theme }) => theme.backgroundColor};
+`;
+
+const HeaderMargin = styled.div`
+  height: 80px;
 `;
 
 const TitleImgBox = styled.div`
