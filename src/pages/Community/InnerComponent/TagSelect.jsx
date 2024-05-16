@@ -184,13 +184,13 @@ const TagSelect = ({ handleFinalSixTags }) => {
   };
 
   const handleTagSelectCompleteBtn = () => {
-    if (
-      clickedCount[0] !== 2 ||
-      clickedCount[1] !== 2 ||
-      clickedCount[2] !== 2
-    ) {
-      alert("태그를 카테고리 당 2개씩 골라주시기 바랍니다.");
+    if (clickedCount[0] < 1 || clickedCount[1] < 1 || clickedCount[2] < 1) {
+      alert("각 카테고리 당 최소 1개의 태그를 골라야 합니다.");
       return;
+    } else if (clickedCount[0] + clickedCount[1] + clickedCount[2] > 10) {
+      alert("태그는 최대 10개까지만 고를 수 있습니다.");
+      return;
+    } else {
     }
 
     setIsTagSelectCompleteBtnClicked((prev) => prev + 1);
@@ -198,13 +198,18 @@ const TagSelect = ({ handleFinalSixTags }) => {
     // 태그에 맞춰 게시글 필터링하기
     // => 위의 useState에 구현했음
 
-    alert("태그에 해당하는 게시물을 불러모으는 중입니다.");
+    alert("태그 선택을 완료하시려면 버튼을 한 번 더 클릭해주세요");
+    // alert("그럴 경우 버튼을 한 번 더 클릭하여 완료해주세요.");
   };
 
   return (
     <Container>
       <HeaderMargin></HeaderMargin>
       <TagsArea>
+        <TagsInstruction>
+          <div>각 카테고리 당 최소 1개의 태그를 골라주세요</div>
+          <div>최대 10개의 태그를 고를 수 있습니다</div>
+        </TagsInstruction>
         <TagsGroupArea>
           <TagTitleArea>
             <TagTitle>여행스타일</TagTitle>
@@ -250,7 +255,7 @@ const TagSelect = ({ handleFinalSixTags }) => {
             ))}
           </TagSelectArea>
         </TagsGroupArea>
-        {selectedTags}
+        {/* {selectedTags} */}
       </TagsArea>
       <TagSelectCompleteArea>
         <TagSelectCompleteBtn onClick={() => handleTagSelectCompleteBtn()}>
@@ -278,6 +283,18 @@ const TagsArea = styled.div`
   justify-content: center;
   align-items: center;
   margin: 2vh 0vh;
+`;
+
+const TagsInstruction = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+
+  div {
+    line-height: 35px;
+  }
 `;
 
 const TagsGroupArea = styled.div`

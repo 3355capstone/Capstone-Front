@@ -57,7 +57,7 @@ const MainPage = () => {
                   <p class="postname">{postName}</p>
                 </div>
                 <div>
-                  <p class="tags">{tag}</p>
+                  <p class="tags">{tags.map((tag) => `# ${tag}, `)}</p>
                 </div>
               </PostItem>
             );

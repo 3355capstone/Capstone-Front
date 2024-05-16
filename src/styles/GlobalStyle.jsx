@@ -68,6 +68,15 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
   }
 
+  input {
+    outline: none;
+  }
+
+  textarea {
+    outline: none;
+    resize: none;
+  }
+
   * {
     -webkit-user-select: none;
     -khtml-user-select: none;

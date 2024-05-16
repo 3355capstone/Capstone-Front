@@ -155,7 +155,7 @@ const Community = () => {
           }) => {}
         )} */}
           {postData.map(({ id, title, tags, imageUrl }) => {
-            const tag = `#${tags} `;
+            // const TAGS = [...tags];
 
             return (
               <PostItem
@@ -171,7 +171,7 @@ const Community = () => {
                   <p class="postname">{title}</p>
                 </div>
                 <div>
-                  <p class="tags">{tag}</p>
+                  <p class="tags">{tags.map((tag) => `# ${tag}, `)}</p>
                 </div>
               </PostItem>
             );
