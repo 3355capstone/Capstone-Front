@@ -143,17 +143,6 @@ const Community = () => {
       <TagSelect handleFinalSixTags={setFinalSixTags} />
       <PostShowBox>
         <PostShowArea>
-          {/* {postData.map(
-          ({
-            place,
-            gender,
-            age,
-            title,
-            description,
-            Tags
-            imageUrl,
-          }) => {}
-        )} */}
           {postData.map(({ id, title, tags, imageUrl }) => {
             // const TAGS = [...tags];
 

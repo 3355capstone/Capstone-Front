@@ -25,10 +25,14 @@ const PostEdit = () => {
         <ContentBox>
           <ContentInput type="textarea" placeholder="내용을 입력해주세요" />
         </ContentBox>
+        {/* <ImageBox></ImageBox> */}
+        <PlaceSelectBox>
+          <PlaceSelectInput placeholder="여행할 장소를 입력해주세요" />
+        </PlaceSelectBox>
         <ImageAttachBox>
+          <InfoSubTitle>적절한 여행 이미지를 첨부해주세요</InfoSubTitle>
           <ImageAttachInput type="file" accept="image/*" />
         </ImageAttachBox>
-        <ImageBox></ImageBox>
       </PostWriteBox>
       <TagSelectCheck>
         <TagSelect handleFinalSixTags={setFinalSixTags} />
@@ -37,11 +41,11 @@ const PostEdit = () => {
           <div>{finalSixTags.map((tag) => `# ${tag}, `)}</div>
         </TagCheck>
       </TagSelectCheck>
-      <PostComplete
+      <PostCompleteBtn
         onClick={() => {
           console.log(finalSixTags);
         }}
-      ></PostComplete>
+      ></PostCompleteBtn>
       <FooterMargin></FooterMargin>
     </Container>
   );
@@ -135,14 +139,34 @@ const ContentInput = styled.textarea`
   }
 `;
 
-const ImageAttachBox = styled.div``;
+const ImageAttachBox = styled.div`
+  margin-top: 20px;
+`;
 
 const ImageAttachInput = styled.input``;
 
-const ImageBox = styled.div``;
+// const ImageBox = styled.div``;
+
+const PlaceSelectBox = styled.div`
+  margin-block: 10px;
+`;
+
+const PlaceSelectInput = styled.input`
+  border: none;
+  border-bottom: 0.5px solid grey;
+  background-color: white;
+  width: 80vw;
+  height: 30px;
+  font-size: 14px;
+
+  &::placeholder {
+    font-size: 14px;
+    padding: 5px;
+  }
+`;
 
 // 임시용
-const PostComplete = styled.div`
+const PostCompleteBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
