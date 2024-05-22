@@ -15,7 +15,7 @@ const PostEdit = () => {
   return (
     <Container>
       <HeaderMargin></HeaderMargin>
-      <div>PostEdit {postId}</div>
+      {/* <div>PostEdit {postId}</div> */}
       <PostWriteBox>
         <InfoTitle>게시글 작성하기</InfoTitle>
         <InfoSubTitle>당신의 여행을 소개해주세요</InfoSubTitle>

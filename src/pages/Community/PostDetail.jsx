@@ -11,9 +11,12 @@ const PostDetail = () => {
   const [finalSixTags, setFinalSixTags] = useState([]);
 
   const [postData, setPostData] = useState([]);
+  const [recommandPostsData, setRecommandPostsData] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
 
+  // 게시글 정보 받아오기 (임시)
   useEffect(() => {
-    fetch("/data/PostData.json", {
+    fetch("/data/OnePostData.json", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -22,40 +25,93 @@ const PostDetail = () => {
       });
   }, []);
 
+  console.log(postData);
+
+  // 게시글 정보 받아오기 (백엔드 통신 코드)
+  // seEffect(() => {
+  //   fetch(`/주소주소/community/post/${postId}.json`, {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPostData(data);
+  //     });
+  // }, []);
+
+  // 작성자 정보 받아오기 (임시)
+  // useEffect(() => {
+  //   fetch("/", {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUserInfo(data);
+  //     });
+  // });
+
+  // 동행글 추천 데이터 받아오기 (임시)
+  useEffect(() => {
+    fetch("/data/PostData.json", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setRecommandPostsData(data);
+      });
+  }, []);
+
   useEffect(() => {
     console.log("Array from child updated:", finalSixTags);
   }, [finalSixTags]);
 
+  // 게시글 정보 구조 분해 할당하기
+  const { place, gender, age, title, description, tags, imageURL } =
+    postData[0];
+
+  // 작성자 정보 구조 분해 할당하기 (임시)
+  const { authorName } = userInfo;
+
   return (
     <Container>
       <HeaderMargin></HeaderMargin>
-      <div>PostEdit {postId}</div>
+      {/* <div>PostEdit {postId}</div> */}
       <PostShowBox>
-        <Title>게시글 제목</Title>
-        <SubTitle>조회수 391 | 작성자 삼삼오오</SubTitle>
+        <Title>{title}</Title>
+        <SubTitle>
+          조회수 391 | 작성자 삼삼오오{authorName} ({age}세, {gender})
+        </SubTitle>
         <TitleBox>
           <TitleShow />
         </TitleBox>
+        <ImageBox>
+          <ImageShow src={imageURL} />
+        </ImageBox>
         <ContentBox>
-          <ContentShow />
+          <ContentShow>{description}</ContentShow>
         </ContentBox>
         {/* <ImageBox></ImageBox> */}
         <PlaceSelectBox>
-          <PlaceSelectShow>여행지: </PlaceSelectShow>
+          <PlaceSelectShow>여행지: {place}</PlaceSelectShow>
         </PlaceSelectBox>
         <WriterInfoBox>
-          <SubTitle>작성자 정보</SubTitle>
+          <SubTitle>〈 작성자 정보 〉</SubTitle>
+          <SubTitle>이름: 삼삼오오{authorName}</SubTitle>
+          <SubTitle>
+            나이, 성별: {age}세, {gender}
+          </SubTitle>
+          <SubTitle>자기소개: 자기소개자기소개</SubTitle>
           {/* <ImageAttachInput type="file" accept="image/*" /> */}
         </WriterInfoBox>
         <TagsSelectedShowBox>
-          <TagsSelected>선택한 태그들 표시</TagsSelected>
+          <TagsSelected>◆ 선택한 태그들 표시 ◆</TagsSelected>
+          <TagsSelected>{tags.map((tag) => `#${tag}, `)}</TagsSelected>
         </TagsSelectedShowBox>
       </PostShowBox>
       <PostRecommendBox>
         <Title>당신에게 맞는 동행글을 추천합니다</Title>
         {/* <SubTitle>조회수 391 | 작성자 삼삼오오</SubTitle> */}
         <PostRecommendShow>
-          {postData.map(({ id, title, tags, imageUrl }) => {
+          {recommandPostsData.map(({ id, title, tags, imageUrl }) => {
             // const TAGS = [...tags];
 
             return (
@@ -157,6 +213,15 @@ const TitleShow = styled.div`
   }
 `;
 
+const ImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const ImageShow = styled.img``;
+
 const ContentBox = styled.div`
   display: flex;
   justify-content: center;
@@ -199,9 +264,17 @@ const WriterInfoBox = styled.div`
   margin-top: 20px;
 `;
 
-const TagsSelectedShowBox = styled.div``;
+const TagsSelectedShowBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+`;
 
-const TagsSelected = styled.div``;
+const TagsSelected = styled.div`
+  line-height: 40px;
+`;
 
 // const ImageBox = styled.div``;
 
@@ -211,7 +284,7 @@ const PostRecommendBox = styled.div`
   flex-direction: column;
   /* justify-content: center; */
   /* align-items: center; */
-  margin-top: 100px;
+  margin-top: 150px;
 `;
 
 const PostRecommendShow = styled.div`

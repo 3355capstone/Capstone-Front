@@ -76,6 +76,7 @@ const Community = () => {
 
   const [postData, setPostData] = useState([]);
 
+  // 추천 게시글 받아오기
   useEffect(() => {
     fetch("/data/PostData.json", {
       method: "GET",
