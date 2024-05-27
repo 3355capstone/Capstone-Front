@@ -1,6 +1,7 @@
 // Signup.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { signUp } from "./AuthAPI";
 import styled from "styled-components";
 
 const AGE_LIST = ["10", "20", "30", "40", "50", "60", "70", "80", "90"];
@@ -24,28 +25,30 @@ const COUNTRY_LIST = [
 ];
 
 function SignUp() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [age, setAge] = useState("10");
-  const [gender, setGender] = useState("남자");
-  const [nationality, setNationality] = useState("대한민국");
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    nickname: "",
+    age: "10",
+    gender: "male",
+    nationality: "대한민국",
+  });
 
   const [isEmailError, setIsEmailError] = useState(false);
   const emailRegExp =
     /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
   const checkEmailForm = () => {
-    if (emailRegExp.test(email)) {
+    if (emailRegExp.test(values.email)) {
       setIsEmailError(false);
     } else {
       setIsEmailError(true);
     }
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     // 이메일이 올바른 형태인지 검사
@@ -56,7 +59,7 @@ function SignUp() {
     }
 
     // 비밀번호, 닉네임이 공란인지 검사
-    if (password === "" || nickname === "") {
+    if (values.password === "" || values.nickname === "") {
       alert("회원가입 실패 (시유: 비밀번호 혹은 닉네임이 공란임)");
     }
 
@@ -66,37 +69,47 @@ function SignUp() {
     // }
 
     // 백엔드와 통신
-    fetch("http://서버주소/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        nickname: nickname,
-        age: age,
-        gender: gender,
-        nationality: nationality,
-      }),
-    }).then((response) => {
-      // if (response.status === 201) {
-      if (response.ok === true) {
-        alert("회원가입을 축하합니다!");
-        navigate("/sign-in");
-      } else {
-        alert(
-          "회원가입 실패 (시유: 이메일 혹은 비밀번호 중복, 닉네임이 이미 사용 중)"
-        );
-      }
-    });
-    // .then(data => {
+    // fetch("http://서버주소/user/signup", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json;charset=utf-8",
+    //   },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password,
+    //     nickname: nickname,
+    //     age: age,
+    //     gender: gender,
+    //     nationality: nationality,
+    //   }),
+    // }).then((response) => {
+    //   // if (response.status === 201) {
+    //   if (response.ok === true) {
+    //     alert("회원가입을 축하합니다!");
+    //     navigate("/sign-in");
+    //   } else {
+    //     alert(
+    //       "회원가입 실패 (시유: 이메일 혹은 비밀번호 중복, 닉네임이 이미 사용 중)"
+    //     );
+    //   }
+    // });
+    // // .then(data => {
     //   if (data.message === 'success') {
     //     navigate('/login');
     //   } else {
     //     alert('회원가입 실패');
     //   }
     // });
+    signUp(values)
+      .then((response) => {
+        window.location.href = `/sign-in`;
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(
+          "회원가입 실패 (시유: 이메일 혹은 비밀번호 중복, 닉네임이 이미 사용 중)"
+        );
+      });
   };
 
   return (
@@ -107,28 +120,48 @@ function SignUp() {
         <Input
           type="text"
           placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={values.email}
+          onChange={async (e) =>
+            setValues((prevState) => ({
+              ...prevState,
+              email: e.target.value,
+            }))
+          }
         />
         <Input
           type="password"
           placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={values.password}
+          onChange={async (e) =>
+            setValues((prevState) => ({
+              ...prevState,
+              password: e.target.value,
+            }))
+          }
         />
         <Input
           type="text"
           placeholder="닉네임"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          value={values.nickname}
+          onChange={async (e) =>
+            setValues((prevState) => ({
+              ...prevState,
+              nickname: e.target.value,
+            }))
+          }
         />
       </UpperBody>
       <LowerBody>
         <Select
           name="age"
           placeholder="나이"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
+          value={values.age}
+          onChange={async (e) =>
+            setValues((prevState) => ({
+              ...prevState,
+              age: e.target.value,
+            }))
+          }
         >
           {AGE_LIST.map((age) => (
             <Option key={age} value={age}>
@@ -139,8 +172,13 @@ function SignUp() {
         <Select
           name="gender"
           placeholder="성별"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
+          value={values.gender}
+          onChange={async (e) =>
+            setValues((prevState) => ({
+              ...prevState,
+              gender: e.target.value,
+            }))
+          }
         >
           {GENDER_LIST.map(([key, gender, genderKor]) => (
             <Option key={key} value={gender}>
@@ -151,8 +189,13 @@ function SignUp() {
         <Select
           name="nationality"
           placeholder="국적"
-          value={nationality}
-          onChange={(e) => setNationality(e.target.value)}
+          value={values.nationality}
+          onChange={async (e) =>
+            setValues((prevState) => ({
+              ...prevState,
+              nationality: e.target.value,
+            }))
+          }
         >
           {COUNTRY_LIST.map(([key, country, countryKor]) => (
             <Option key={key} value={country}>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Header = () => {
-  const token = localStorage.getItem("token");
+  const ACCESS_TOKEN = localStorage.getItem("accessToken");
 
   return (
     <Container>
@@ -23,13 +23,13 @@ const Header = () => {
       </HeaderLeftArea>
       <HeaderRightArea>
         <LoginArea>
-          {token ? (
+          {ACCESS_TOKEN ? (
             <>
               <LogoutBtn>
                 <a
                   href={"/sign-in"}
                   onClick={() => {
-                    localStorage.removeItem("token");
+                    localStorage.removeItem("accessToken");
                     window.location.reload();
                   }}
                 >
