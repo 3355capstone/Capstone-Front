@@ -1,7 +1,7 @@
 // Login.js
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { login } from "../api/AuthAPI";
+import { login } from "./AuthAPI";
 import styled from "styled-components";
 
 const SignIn = () => {

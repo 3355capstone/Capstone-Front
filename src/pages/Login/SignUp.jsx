@@ -1,7 +1,7 @@
 // Signup.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { signUp } from "../api/AuthAPI";
+// import { useNavigate } from "react-router-dom";
+import { signUp } from "./AuthAPI";
 import styled from "styled-components";
 
 const AGE_LIST = ["10", "20", "30", "40", "50", "60", "70", "80", "90"];
@@ -25,23 +25,16 @@ const COUNTRY_LIST = [
 ];
 
 function SignUp() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [values, setValues] = useState({
     email: "",
     password: "",
     nickname: "",
     age: "10",
-    gender: "남자",
+    gender: "male",
     nationality: "대한민국",
   });
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [nickname, setNickname] = useState("");
-  // const [age, setAge] = useState("10");
-  // const [gender, setGender] = useState("남자");
-  // const [nationality, setNationality] = useState("대한민국");
 
   const [isEmailError, setIsEmailError] = useState(false);
   const emailRegExp =
@@ -127,7 +120,7 @@ function SignUp() {
         <Input
           type="text"
           placeholder="이메일"
-          value={email}
+          value={values.email}
           onChange={async (e) =>
             setValues((prevState) => ({
               ...prevState,
@@ -138,7 +131,7 @@ function SignUp() {
         <Input
           type="password"
           placeholder="비밀번호"
-          value={password}
+          value={values.password}
           onChange={async (e) =>
             setValues((prevState) => ({
               ...prevState,
@@ -149,7 +142,7 @@ function SignUp() {
         <Input
           type="text"
           placeholder="닉네임"
-          value={nickname}
+          value={values.nickname}
           onChange={async (e) =>
             setValues((prevState) => ({
               ...prevState,
@@ -162,7 +155,7 @@ function SignUp() {
         <Select
           name="age"
           placeholder="나이"
-          value={age}
+          value={values.age}
           onChange={async (e) =>
             setValues((prevState) => ({
               ...prevState,
@@ -179,7 +172,7 @@ function SignUp() {
         <Select
           name="gender"
           placeholder="성별"
-          value={gender}
+          value={values.gender}
           onChange={async (e) =>
             setValues((prevState) => ({
               ...prevState,
@@ -196,7 +189,7 @@ function SignUp() {
         <Select
           name="nationality"
           placeholder="국적"
-          value={nationality}
+          value={values.nationality}
           onChange={async (e) =>
             setValues((prevState) => ({
               ...prevState,
