@@ -17,7 +17,7 @@ const Header = () => {
             <a href="/community">커뮤니티</a>
           </NavButton>
           <NavButton>
-            <a href="course-recommendation">코스추천</a>
+            <a href="/course-recommendation">코스추천</a>
           </NavButton>
         </NavBar>
       </HeaderLeftArea>

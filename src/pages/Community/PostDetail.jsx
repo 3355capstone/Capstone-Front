@@ -21,11 +21,10 @@ const PostDetail = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setPostData(data);
+        console.log(data);
+        setPostData(data[0]);
       });
   }, []);
-
-  console.log(postData);
 
   // 게시글 정보 받아오기 (백엔드 통신 코드)
   // seEffect(() => {
@@ -65,8 +64,7 @@ const PostDetail = () => {
   }, [finalSixTags]);
 
   // 게시글 정보 구조 분해 할당하기
-  const { place, gender, age, title, description, tags, imageURL } =
-    postData[0];
+  const { place, gender, age, title, description, tags, imageURL } = postData;
 
   // 작성자 정보 구조 분해 할당하기 (임시)
   const { authorName } = userInfo;
@@ -77,34 +75,40 @@ const PostDetail = () => {
       {/* <div>PostEdit {postId}</div> */}
       <PostShowBox>
         <Title>{title}</Title>
+        {/* <Title>안녕하세요?</Title> */}
         <SubTitle>
           조회수 391 | 작성자 삼삼오오{authorName} ({age}세, {gender})
         </SubTitle>
+        {/* <SubTitle>조회수 391 | 작성자 삼삼오오</SubTitle> */}
         <TitleBox>
           <TitleShow />
         </TitleBox>
         <ImageBox>
           <ImageShow src={imageURL} />
+          {/* <ImageShow /> */}
         </ImageBox>
         <ContentBox>
           <ContentShow>{description}</ContentShow>
+          {/* <ContentShow>안녕하세요 같이 여행하실래요?</ContentShow> */}
         </ContentBox>
-        {/* <ImageBox></ImageBox> */}
         <PlaceSelectBox>
           <PlaceSelectShow>여행지: {place}</PlaceSelectShow>
+          {/* <PlaceSelectShow>여행지: 서울 근교</PlaceSelectShow> */}
         </PlaceSelectBox>
         <WriterInfoBox>
           <SubTitle>〈 작성자 정보 〉</SubTitle>
           <SubTitle>이름: 삼삼오오{authorName}</SubTitle>
+          {/* <SubTitle>이름: 삼삼오오</SubTitle> */}
           <SubTitle>
             나이, 성별: {age}세, {gender}
           </SubTitle>
+          {/* <SubTitle>나이, 성별: 29세, 남성</SubTitle> */}
           <SubTitle>자기소개: 자기소개자기소개</SubTitle>
-          {/* <ImageAttachInput type="file" accept="image/*" /> */}
         </WriterInfoBox>
         <TagsSelectedShowBox>
           <TagsSelected>◆ 선택한 태그들 표시 ◆</TagsSelected>
           <TagsSelected>{tags.map((tag) => `#${tag}, `)}</TagsSelected>
+          {/* <TagsSelected>#안녕, #안녕</TagsSelected> */}
         </TagsSelectedShowBox>
       </PostShowBox>
       <PostRecommendBox>
