@@ -8,6 +8,16 @@ const Post = () => {
 
   const [finalSixTags, setFinalSixTags] = useState([]);
 
+  const handleConfirm = () => {
+    fetch("http://10.10.29.204:8080/post", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // setPopularPostArray(data);
+      });
+  };
+
   useEffect(() => {
     console.log("Array from child updated:", finalSixTags);
   }, [finalSixTags]);
@@ -44,8 +54,11 @@ const Post = () => {
       <PostCompleteBtn
         onClick={() => {
           console.log(finalSixTags);
+          handleConfirm();
         }}
-      ></PostCompleteBtn>
+      >
+        게시글 작성 완료
+      </PostCompleteBtn>
       <FooterMargin></FooterMargin>
     </Container>
   );
@@ -54,6 +67,7 @@ const Post = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100vw;
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
@@ -170,6 +184,11 @@ const PostCompleteBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 200px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: #04dfd9;
+  color: white;
 `;
 
 const FooterMargin = styled.div`
