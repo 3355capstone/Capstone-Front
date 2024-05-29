@@ -1,7 +1,39 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Header = () => {
+  const navigate = useNavigate();
+  const TOKEN_TYPE = localStorage.getItem("tokenType");
   const ACCESS_TOKEN = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    const login = async () => {
+      try {
+        const response = await fetch(`${API_URL}/user/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${TOKEN_TYPE} ${ACCESS_TOKEN}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("세션이 만료되었습니다. 다시 로그인해주세요.");
+        }
+
+        const data = await response.json();
+        console.log(data); // 데이터를 이용해 추가 작업 수행
+      } catch (error) {
+        console.error(error.message);
+        navigate("/sign-in");
+      }
+    };
+
+    login();
+  }, [navigate]);
 
   return (
     <Container>
