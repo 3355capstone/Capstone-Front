@@ -27,22 +27,22 @@ const CourseRecommendation = () => {
           <p>인기 관광지</p>
           <Title>TOP 10</Title>
           <LeftSideContentBox>
-            <div>1. 인기 관광지명</div>
-            <div>2. 인기 관광지명</div>
-            <div>3. 인기 관광지명</div>
-            <div>4. 인기 관광지명</div>
-            <div>5. 인기 관광지명</div>
-            <div>6. 인기 관광지명</div>
-            <div>7. 인기 관광지명</div>
-            <div>8. 인기 관광지명</div>
-            <div>9. 인기 관광지명</div>
-            <div>10. 인기 관광지명</div>
+            <div>1. 익산동</div>
+            <div>2. 경복궁</div>
+            <div>3. 인사동</div>
+            <div>4. 명동</div>
+            <div>5. 경의선숲길</div>
+            <div>6. 홍대</div>
+            <div>7. 세빛섬</div>
+            <div>8. 반포한강공원</div>
+            <div>9. 서울숲</div>
+            <div>10. 롯데월드</div>
           </LeftSideContentBox>
         </LeftSideBox>
         <RightSideBox>
           <UpperBox>
             <MapArea>
-              <Title>인기 관광지 명을 지도에 검색해보세요</Title>
+              <Title>인기 관광지 명 지도에 검색하기</Title>
               <ContentBox>
                 {/* <Kakao /> */}
                 <img src="/images/course_recommendation_page/map.png" />
