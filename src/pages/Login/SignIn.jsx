@@ -39,30 +39,6 @@ const SignIn = () => {
       alert("로그인 실패 (시유: 비밀번호 혹은 닉네임이 공란임)");
     }
 
-    // 백엔드와 통신
-    // fetch("http://서버주소/user/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json;charset=utf-8",
-    //   },
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //   }),
-    // })
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     if (data.token) {
-    //       localStorage.setItem("TOKEN", data.accessToken);
-    //       navigate("/");
-    //     } else {
-    //       alert(
-    //         "로그인 실패 (이메일 혹은 비밀번호가 존재하지 않거나 올바르지 않음)"
-    //       );
-    //     }
-    //   });
     login(values)
       .then((response) => {
         localStorage.clear();

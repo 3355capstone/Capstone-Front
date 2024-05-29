@@ -120,7 +120,7 @@ const Community = () => {
 
   const postId = 1;
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("accessToken");
 
   return (
     <Container>
