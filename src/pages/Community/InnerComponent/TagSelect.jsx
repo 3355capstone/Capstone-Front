@@ -198,7 +198,9 @@ const TagSelect = ({ handleFinalSixTags }) => {
     // 태그에 맞춰 게시글 필터링하기
     // => 위의 useState에 구현했음
 
-    alert("태그 선택을 완료하시려면 버튼을 한 번 더 클릭해주세요");
+    alert(
+      "태그 선택을 완료하시려면 버튼을 한 번 더 클릭해주세요. ('선택한 태그 확인'란을 확인해주세요)"
+    );
     // alert("그럴 경우 버튼을 한 번 더 클릭하여 완료해주세요.");
   };
 
@@ -338,6 +340,12 @@ const TagItem = styled.div`
   border: 1px solid grey;
   border-radius: 5px;
   font-family: "Freesentation-9Black";
+
+  &:hover {
+    background-color: #04dfd9;
+    color: white;
+    border: none;
+  }
 `;
 
 const TagSelectCompleteArea = styled.div`
@@ -345,7 +353,7 @@ const TagSelectCompleteArea = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 60px;
+  height: 10px;
   margin: 50px 0px;
 `;
 
@@ -354,10 +362,15 @@ const TagSelectCompleteBtn = styled.div`
   justify-content: center;
   align-items: center;
   width: 200px;
-  height: 60px;
+  height: 50px;
   border-radius: 15px;
   background-color: #04dfd9;
   color: white;
+
+  &:hover {
+    border: 1px solid grey;
+    color: black;
+  }
 `;
 
 export default TagSelect;

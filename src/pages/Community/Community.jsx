@@ -74,53 +74,36 @@ const Community = () => {
 
   const [finalSixTags, setFinalSixTags] = useState([]);
 
-  const [postData, setPostData] = useState([]);
+  const [postDatas, setPostDatas] = useState([]);
 
   // 추천 게시글 받아오기
   useEffect(() => {
-    fetch("/data/PostData.json", {
+    fetch("http://10.10.29.204:8080/community", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
-        setPostData(data);
+        setPostDatas(data);
       });
   }, []);
 
-  useEffect(() => {}, [finalSixTags]);
-
-  // 백엔드와 통신
-  // useEffect(() => {
-  //   fetch("http://서버주소/user/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json;charset=utf-8",
-  //     },
-  // body: JSON.stringify({
-  //   email: email,
-  //   password: password,
-  // }),
-  //   })
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       if (data.token) {
-  //         localStorage.setItem("TOKEN", data.accessToken);
-  //         navigate("/");
-  //       } else {
-  //         alert(
-  //           "로그인 실패 (이메일 혹은 비밀번호가 존재하지 않거나 올바르지 않음)"
-  //         );
-  //       }
-  //     });
-  // }, []);
-
-  // 태그 클릭 시 색깔 변경
+  // '태그 기번 추천 게시글 조회' 백엔드 연동 코드
+  useEffect(() => {
+    fetch(`http://10.10.29.204:8080/`, {
+      method: "POST",
+      body: JSON.stringify({
+        tags: finalSixTags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPostDatas(data);
+      });
+  }, [postDatas, finalSixTags]);
 
   const postId = 1;
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("accessToken");
 
   return (
     <Container>
@@ -144,14 +127,14 @@ const Community = () => {
       <TagSelect handleFinalSixTags={setFinalSixTags} />
       <PostShowBox>
         <PostShowArea>
-          {postData.map(({ id, title, tags, imageUrl }) => {
+          {postDatas.map(({ postId, title, tags, imageUrl }) => {
             // const TAGS = [...tags];
 
             return (
               <PostItem
-                key={id}
+                key={postId}
                 onClick={() => {
-                  navigate(`/post/${id}`);
+                  navigate(`/post-detail/${postId}`);
                 }}
               >
                 <div>
