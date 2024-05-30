@@ -5,48 +5,40 @@ import styled from "styled-components";
 
 const PostDetail = () => {
   const navigate = useNavigate();
-
   const { postId } = useParams();
 
   const [finalSixTags, setFinalSixTags] = useState([]);
 
-  const [postData, setPostData] = useState([]);
-  const [recommandPostsData, setRecommandPostsData] = useState([]);
-  const [userInfo, setUserInfo] = useState([]);
+  const [lastPostData, setLastPostData] = useState({
+    postId: postId,
+    title: "강남 같이 가실 분 구해요",
+    content:
+      "2월 5일에 같이 강남에 있는 디저트 카페 돌아다니실 분 구합니다. 저는 20대 여자에요",
+    filePath: null,
+    viewCount: 0,
+    place: "강릉",
+    tags: ["쇼핑", "일식", "혼자여행", "명소탐방"],
+    userInfo: {
+      email: "dd@naver.com",
+      nickname: null,
+      age: 20,
+      country: null,
+      gender: null,
+    },
+  });
 
-  // 게시글 정보 받아오기 (임시)
+  const [recommandPostsData, setRecommandPostsData] = useState([]);
+
+  // 게시글 데이터 백엔드로부터 불러오기
   useEffect(() => {
-    fetch("/data/OnePostData.json", {
+    fetch(`http://10.10.29.204:8080/post/${postId}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setPostData(data[0]);
+        setLastPostData(data);
       });
   }, []);
-
-  // 게시글 정보 받아오기 (백엔드 통신 코드)
-  // seEffect(() => {
-  //   fetch(`/주소주소/community/post/${postId}.json`, {
-  //     method: "GET",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPostData(data);
-  //     });
-  // }, []);
-
-  // 작성자 정보 받아오기 (임시)
-  // useEffect(() => {
-  //   fetch("/", {
-  //     method: "GET",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUserInfo(data);
-  //     });
-  // });
 
   // 동행글 추천 데이터 받아오기 (임시)
   useEffect(() => {
@@ -63,11 +55,9 @@ const PostDetail = () => {
     console.log("Array from child updated:", finalSixTags);
   }, [finalSixTags]);
 
-  // 게시글 정보 구조 분해 할당하기
-  const { place, gender, age, title, description, tags, imageURL } = postData;
-
-  // 작성자 정보 구조 분해 할당하기 (임시)
-  const { authorName } = userInfo;
+  // 게시글 정보, 사용자 정보 구조 분해 할당하기
+  const { title, content, viewCount, place, tags, userInfo } = lastPostData;
+  const { nickname, age, country, gender } = userInfo;
 
   return (
     <Container>
@@ -77,18 +67,18 @@ const PostDetail = () => {
         <Title>{title}</Title>
         {/* <Title>안녕하세요?</Title> */}
         <SubTitle>
-          조회수 391 | 작성자 삼삼오오{authorName} ({age}세, {gender})
+          조회수 391 | 작성자 삼삼오오{nickname} ({age}세, {gender})
         </SubTitle>
         {/* <SubTitle>조회수 391 | 작성자 삼삼오오</SubTitle> */}
         <TitleBox>
           <TitleShow />
         </TitleBox>
         <ImageBox>
-          <ImageShow src={imageURL} />
+          <ImageShow src={""} />
           {/* <ImageShow /> */}
         </ImageBox>
         <ContentBox>
-          <ContentShow>{description}</ContentShow>
+          <ContentShow>{content}</ContentShow>
           {/* <ContentShow>안녕하세요 같이 여행하실래요?</ContentShow> */}
         </ContentBox>
         <PlaceSelectBox>
@@ -97,7 +87,7 @@ const PostDetail = () => {
         </PlaceSelectBox>
         <WriterInfoBox>
           <SubTitle>〈 작성자 정보 〉</SubTitle>
-          <SubTitle>이름: 삼삼오오{authorName}</SubTitle>
+          <SubTitle>이름: {nickname}</SubTitle>
           {/* <SubTitle>이름: 삼삼오오</SubTitle> */}
           <SubTitle>
             나이, 성별: {age}세, {gender}

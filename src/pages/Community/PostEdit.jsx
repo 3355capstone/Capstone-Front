@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TagSelect from "./InnerComponent/TagSelect";
 
@@ -10,6 +10,7 @@ const GENDER_LIST = [
 ];
 
 const PostEdit = () => {
+  const navigate = useNavigate();
   const { postId } = useParams();
 
   const [finalSixTags, setFinalSixTags] = useState([]);
@@ -43,7 +44,7 @@ const PostEdit = () => {
     userInfo: {
       email: "",
       nickname: "",
-      age: 0,
+      age: 20,
       country: null,
       gender: null,
     },
@@ -58,6 +59,7 @@ const PostEdit = () => {
     }));
   }, [finalSixTags]);
 
+  // 게시글 데이터 백엔드로부터 불러오기
   useEffect(() => {
     fetch(`http://10.10.29.204:8080/post/${postId}`, {
       method: "GET",
@@ -68,6 +70,7 @@ const PostEdit = () => {
       });
   }, []);
 
+  // 수정 완료한 게시글 데이터 백엔드로 전송하기
   const handleConfirm = () => {
     fetch(`http://10.10.29.204:8080/post/${postId}`, {
       method: "POST",
@@ -91,9 +94,12 @@ const PostEdit = () => {
       .then((res) => res.json())
       .then((data) => {
         // setPopularPostArray(data);
+        alert("게시글을 수정하였습니다.");
+        navigate(`post-detail/${postId}`);
       });
   };
 
+  // 게시글 정보, 사용자 정보 구조 분해 할당하기
   const { title, content, viewCount, place, tags, userInfo } = lastPostData;
   const { nickname, age, country, gender } = userInfo;
 
@@ -129,7 +135,10 @@ const PostEdit = () => {
         </ContentBox>
         {/* <ImageBox></ImageBox> */}
         <PlaceSelectBox>
-          <PlaceSelectInput placeholder="여행할 장소를 입력해주세요" />
+          <PlaceSelectInput
+            placeholder="여행할 장소를 입력해주세요"
+            value={place}
+          />
         </PlaceSelectBox>
         <EtcSelectBox>
           <Select
@@ -185,14 +194,16 @@ const PostEdit = () => {
           <div>{finalSixTags.map((tag) => `# ${tag}, `)}</div>
         </TagCheck>
       </TagSelectCheck>
-      <PostCompleteBtn
-        onClick={() => {
-          console.log(finalSixTags);
-          handleConfirm();
-        }}
-      >
-        게시글 작성 완료
-      </PostCompleteBtn>
+      <BtnArea>
+        <PostCompleteBtn
+          onClick={() => {
+            console.log(finalSixTags);
+            handleConfirm();
+          }}
+        >
+          게시글 작성 완료
+        </PostCompleteBtn>
+      </BtnArea>
       <FooterMargin></FooterMargin>
     </Container>
   );
@@ -201,6 +212,7 @@ const PostEdit = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100vw;
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
@@ -261,6 +273,7 @@ const TitleInput = styled.input`
   font-size: 14px;
 
   &::placeholder {
+    color: black;
     font-size: 14px;
     padding: 5px;
   }
@@ -281,6 +294,7 @@ const ContentInput = styled.textarea`
   font-size: 14px;
 
   &::placeholder {
+    color: black;
     font-size: 14px;
     padding: 5px;
   }
@@ -329,20 +343,33 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-// 임시용
+//
+const BtnArea = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const PostCompleteBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 60px;
+  width: 300px;
+  height: 80px;
   border-radius: 15px;
-  background-color: #04dfd9;
-  color: white;
+  /* background-color: #04dfd9; */
+  background-color: white;
+  font-size: 22px;
+  color: black;
+  border: 2px solid black;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 const FooterMargin = styled.div`
-  height: 80px;
+  height: 150px;
 `;
 
 export default PostEdit;

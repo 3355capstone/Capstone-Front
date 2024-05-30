@@ -1,20 +1,41 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TagSelect from "./InnerComponent/TagSelect";
 
 const Post = () => {
   const { postId } = useParams();
+  const navigate = useNavigate();
 
   const [finalSixTags, setFinalSixTags] = useState([]);
 
+  // 수정 완료한 게시글 데이터 백엔드로 전송하기
   const handleConfirm = () => {
-    fetch("http://10.10.29.204:8080/post", {
-      method: "GET",
+    fetch(`http://10.10.29.204:8080/post/${postId}`, {
+      method: "POST",
+      body: JSON.stringify({
+        postId: postId,
+        title: "",
+        content: "",
+        filePath: "",
+        viewCount: "",
+        place: "",
+        tags: [],
+        userInfo: {
+          email: "",
+          nickname: "",
+          age: 0,
+          country: null,
+          gender: null,
+        },
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         // setPopularPostArray(data);
+        alert("게시글을 게시하였습니다.");
+        navigate(`/post-detail/${postId}`);
       });
   };
 
@@ -179,16 +200,24 @@ const PlaceSelectInput = styled.input`
   }
 `;
 
-// 임시용
+//
 const PostCompleteBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 60px;
+  width: 300px;
+  height: 80px;
   border-radius: 15px;
-  background-color: #04dfd9;
-  color: white;
+  /* background-color: #04dfd9; */
+  background-color: white;
+  font-size: 22px;
+  color: black;
+  border: 2px solid black;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 const FooterMargin = styled.div`
