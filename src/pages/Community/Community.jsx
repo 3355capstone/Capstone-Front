@@ -76,9 +76,12 @@ const Community = () => {
 
   const [postDatas, setPostDatas] = useState([]);
 
+  console.log(postDatas);
+
+  // http://220.67.128.173:8080
   // 추천 게시글 받아오기
   useEffect(() => {
-    fetch("http://10.10.29.204:8080/community", {
+    fetch("http://localhost:8080/post/list", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -87,9 +90,28 @@ const Community = () => {
       });
   }, []);
 
+  //
+
   // '태그 기번 추천 게시글 조회' 백엔드 연동 코드
-  useEffect(() => {
-    fetch(`http://10.10.29.204:8080/`, {
+  // useEffect(() => {
+  //   fetch(`http://10.10.29.204:8080/post/tag`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       tags: finalSixTags,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPostDatas(data);
+  //     });
+  // }, [postDatas, finalSixTags]);
+
+  const postId = 1;
+
+  const token = localStorage.getItem("accessToken");
+
+  const handleTagCompleteBtn = () => {
+    fetch(`http://localhost:8080/post/tag`, {
       method: "POST",
       body: JSON.stringify({
         tags: finalSixTags,
@@ -99,11 +121,7 @@ const Community = () => {
       .then((data) => {
         setPostDatas(data);
       });
-  }, [postDatas, finalSixTags]);
-
-  const postId = 1;
-
-  const token = localStorage.getItem("accessToken");
+  };
 
   return (
     <Container>
@@ -125,9 +143,14 @@ const Community = () => {
         )}
       </PostBtnArea>
       <TagSelect handleFinalSixTags={setFinalSixTags} />
+      <TagCompleteBtn
+        onClick={() => {
+          handleTagCompleteBtn();
+        }}
+      />
       <PostShowBox>
         <PostShowArea>
-          {postDatas.map(({ postId, title, tags, imageUrl }) => {
+          {postDatas.map(({ postId, title, tags }) => {
             // const TAGS = [...tags];
 
             return (
@@ -138,7 +161,7 @@ const Community = () => {
                 }}
               >
                 <div>
-                  <img height="150px" src={imageUrl} />
+                  <img height="150px" src="" />
                 </div>
                 <div>
                   <p class="postname">{title}</p>
@@ -175,7 +198,7 @@ const TitleImgBox = styled.div`
   margin: 3vh 0;
 
   img {
-    width: 85vw;
+    width: 50vw;
     border-radius: 20px;
   }
 
@@ -208,6 +231,8 @@ const PostBtn = styled.div`
   background-color: #04dfd9;
   /* font-family: "Freesentation-9Black"; */
 `;
+
+const TagCompleteBtn = styled.div``;
 
 const PostShowBox = styled.div`
   display: flex;
