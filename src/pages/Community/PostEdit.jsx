@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TagSelect from "./InnerComponent/TagSelect";
+import axios from "axios";
+
+const TOKEN_TYPE = localStorage.getItem("tokenType");
+let ACCESS_TOKEN = localStorage.getItem("accessToken");
+let REFRESH_TOKEN = localStorage.getItem("refreshToken");
 
 const AGE_LIST = ["10", "20", "30", "40", "50", "60", "70", "80", "90"];
 const GENDER_LIST = [
@@ -16,38 +21,29 @@ const PostEdit = () => {
   const [finalSixTags, setFinalSixTags] = useState([]);
 
   const [lastPostData, setLastPostData] = useState({
-    postId: postId,
-    title: "강남 같이 가실 분 구해요",
+    place: "제주",
+    gender: "여성",
+    age: 30,
+    title: "입사 전 힐링 여행 함께해요",
     content:
-      "2월 5일에 같이 강남에 있는 디저트 카페 돌아다니실 분 구합니다. 저는 20대 여자에요",
-    filePath: null,
-    viewCount: 0,
-    place: "강릉",
-    tags: ["쇼핑", "일식", "혼자여행", "명소탐방"],
-    userInfo: {
-      email: "dd@naver.com",
-      nickname: null,
-      age: 20,
-      country: null,
-      gender: null,
-    },
+      "입사 전에 가는 여행입니다! 성별과 나이는 비슷하면 좋을 것 같아요~ I지만 낯은 잘 안 가려용. 힐링 여행 다녀오실 분 편하게 연락주세요",
+    tagNames: [
+      "명소탐방",
+      "휴식/휴양",
+      "한식",
+      "가성비있는",
+      "펜션",
+      "교통접근성",
+    ],
   });
 
   const [postData, setPostData] = useState({
-    postId: postId,
+    place: "",
+    gender: "",
+    age: 0,
     title: "",
     content: "",
-    filePath: "",
-    viewCount: "",
-    place: "",
-    tags: [],
-    userInfo: {
-      email: "",
-      nickname: "",
-      age: 20,
-      country: null,
-      gender: null,
-    },
+    tagNames: [],
   });
 
   useEffect(() => {
@@ -61,7 +57,7 @@ const PostEdit = () => {
 
   // 게시글 데이터 백엔드로부터 불러오기
   useEffect(() => {
-    fetch(`http://10.10.29.204:8080/post/${postId}`, {
+    fetch(`http://localhost:8080/post/${postId}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -72,23 +68,15 @@ const PostEdit = () => {
 
   // 수정 완료한 게시글 데이터 백엔드로 전송하기
   const handleConfirm = () => {
-    fetch(`http://10.10.29.204:8080/post/${postId}`, {
+    fetch(`http://localhost:8080/post/${postId}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${TOKEN_TYPE} ${ACCESS_TOKEN}`,
+        REFRESH_TOKEN: REFRESH_TOKEN,
+      },
       body: JSON.stringify({
-        postId: postId,
-        title: "",
-        content: "",
-        filePath: "",
-        viewCount: "",
-        place: "",
-        tags: [],
-        userInfo: {
-          email: "",
-          nickname: "",
-          age: 0,
-          country: null,
-          gender: null,
-        },
+        ...postData,
       }),
     })
       .then((res) => res.json())
@@ -100,8 +88,7 @@ const PostEdit = () => {
   };
 
   // 게시글 정보, 사용자 정보 구조 분해 할당하기
-  const { title, content, viewCount, place, tags, userInfo } = lastPostData;
-  const { nickname, age, country, gender } = userInfo;
+  const { title, content, viewCount, place, tagNames } = lastPostData;
 
   return (
     <Container>
@@ -144,14 +131,11 @@ const PostEdit = () => {
           <Select
             name="age"
             placeholder="나이"
-            value={postData.userInfo.age}
+            value={postData.age}
             onChange={async (e) =>
               setPostData((prevState) => ({
                 ...prevState,
-                userInfo: {
-                  ...prevState,
-                  age: e.target.value,
-                },
+                age: e.target.value,
               }))
             }
           >
@@ -168,10 +152,7 @@ const PostEdit = () => {
             onChange={async (e) =>
               setPostData((prevState) => ({
                 ...prevState,
-                userInfo: {
-                  ...prevState,
-                  gender: e.target.value,
-                },
+                gender: e.target.value,
               }))
             }
           >
@@ -197,7 +178,6 @@ const PostEdit = () => {
       <BtnArea>
         <PostCompleteBtn
           onClick={() => {
-            console.log(finalSixTags);
             handleConfirm();
           }}
         >
@@ -299,12 +279,6 @@ const ContentInput = styled.textarea`
     padding: 5px;
   }
 `;
-
-const ImageAttachBox = styled.div`
-  margin-top: 20px;
-`;
-
-const ImageAttachInput = styled.input``;
 
 // const ImageBox = styled.div``;
 

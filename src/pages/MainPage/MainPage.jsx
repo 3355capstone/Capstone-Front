@@ -10,8 +10,19 @@ const MainPage = () => {
   const [popularPostArray, setPopularPostArray] = useState([]);
   const [popularPlaceArray, setPopularPlaceArray] = useState([]);
 
+  // useEffect(() => {
+  //   fetch("/data/PopularPostItems.json", {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPopularPostArray(data);
+  //     });
+  // }, []);
+
+  // 최근 인기 동행 게시글 불러오기
   useEffect(() => {
-    fetch("/data/PopularPostItems.json", {
+    fetch("http://localhost:8080/post/view", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -116,7 +127,7 @@ const TitleImgBox = styled.div`
   /* height: 30vh; */
 
   img {
-    width: 85vw;
+    width: 50vw;
     border-radius: 20px;
   }
 
